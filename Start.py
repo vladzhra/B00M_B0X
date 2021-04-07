@@ -77,6 +77,5 @@ def Passive_modules():
 	lcd()
 
 
- 
-
 ActiveModules_Choice()
+Modules_Choice()
