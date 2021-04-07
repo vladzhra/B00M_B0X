@@ -2,9 +2,9 @@
 Projet de fin d'année 2021 
 
 ## Différents Fichiers :
-Start.py
-Main.py
-Manuel_desamorcage.docx
+- Start.py
+- Main.py
+- Manuel_desamorcage.docx
 
 
 ## Différents dossiers
@@ -22,10 +22,10 @@ Passive modules :
 - Buzer
 
 ## pi@
-pi@192.168.1.32
-pi@raspberrypi
+- pi@192.168.1.32
+- pi@raspberrypi
 
 ## Commands
-git add .
-git commit -m ""
-git push
+- git add .
+- git commit -m ""
+- git push
