@@ -14,6 +14,7 @@ Active modules:
 - module_3 (Big Button ?)
 - module_4 (Morse ?)
 - module_5 (?)
+
 Passive modules :
 - Led Bar
 - LCD
