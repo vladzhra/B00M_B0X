@@ -84,39 +84,38 @@ class keypad():
 
 
 
-    
-try:
-
-    if __name__ == '__main__':
-        # Initialize the keypad class
-        kp = keypad()
-        code = [1,2,3,"A","*"]
-        code_test = []
-        # Loop while waiting for a keypress
-
-        while True:
-            digit = None
-            while digit == None:
-                digit = kp.getKey()    
-                        
-            # Print the result
-            if len(code_test) < 5:
-                code_test.append(digit)
-            else:
-                if code == code_test:
-                    print("=======================\nCode bon")
-                    print(code_test)
-                else:
-                    print("Code mauvais \n[TIMER] -10 secondes \n=======================")
-                    print(code_test)
-                    for nb in range(len(code_test)):
-                        code_test.pop()
-            print(digit)
-            time.sleep(0.5)
-
-        
-except KeyboardInterrupt:  # When 'Ctrl+C' is pressed, the flowing code will be  executed.
-    GPIO.cleanup()                     # Release resource
-
 def module_1():
-    print("Lancement du module 1 ...")
+    print("Lancement du module 1 ...")    
+    try:
+
+        if __name__ == '__main__':
+            # Initialize the keypad class
+            kp = keypad()
+            code = [1,2,3,"A","*"]
+            code_test = []
+            # Loop while waiting for a keypress
+
+            while True:
+                digit = None
+                while digit == None:
+                    digit = kp.getKey()    
+                            
+                # Print the result
+                if len(code_test) < 5:
+                    code_test.append(digit)
+                else:
+                    if code == code_test:
+                        print("=======================\nCode bon")
+                        print(code_test)
+                    else:
+                        print("Code mauvais \n[TIMER] -10 secondes \n=======================")
+                        print(code_test)
+                        for nb in range(len(code_test)):
+                            code_test.pop()
+                print(digit)
+                time.sleep(0.5)
+
+            
+    except KeyboardInterrupt:  # When 'Ctrl+C' is pressed, the flowing code will be  executed.
+        GPIO.cleanup()                     # Release resource
+

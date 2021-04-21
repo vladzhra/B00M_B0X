@@ -10,28 +10,35 @@ Module : Buzer
 """
 
 
+
 import RPi.GPIO as GPIO
 import time
 
-BZRPin = 32
+BZRPin = 12
 
 GPIO.setmode(GPIO.BOARD)       # Numbers pins by physical location
 GPIO.setup(BZRPin, GPIO.OUT)   # Set pin mode as output
 GPIO.output(BZRPin, GPIO.LOW)
 
-p = GPIO.PWM(BZRPin, 500) # init frequency: 50HZ
-p.start(50)  # Duty cycle: 50%
+p = GPIO.PWM(BZRPin, 70) # init frequency: 50HZ
+# Duty cycle: 50%
+print("let's go")
 
-try:
-	while True:
-        
-		print '...led on'
-		p.start(50)
-		time.sleep(1)
-		print 'led off...'
-		p.stop()
-		time.sleep(1)
-        
-except KeyboardInterrupt:
-	p.stop()
-	GPIO.cleanup()
+
+
+def start():
+    for i in range (10):
+        p.start(100)
+        time.sleep(0.5)
+        p.stop()
+        time.sleep(0.5)
+
+def erreur():
+    for i in range (6):
+        p.start(100)
+        time.sleep(0.1)
+        p.stop()
+        time.sleep(0.1)
+
+erreur()
+

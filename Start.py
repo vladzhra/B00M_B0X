@@ -20,11 +20,11 @@ import time
 import random 
 
 # Importation des modules
-from Active_Modules.Module_1 import module_1
-from Active_Modules.Module_2 import module_2
-from Active_Modules.Module_3 import module_3
-from Active_Modules.Module_4 import module_4
-from Active_Modules.Module_5 import module_5
+from Active_modules.Module_1 import module_1
+from Active_modules.Module_2 import module_2
+from Active_modules.Module_3 import module_3
+from Active_modules.Module_4 import module_4
+from Active_modules.Module_5 import module_5
 from Passive_modules.buzer import buzer
 from Passive_modules.lcd import lcd
 from Passive_modules.ledbar import ledbar
@@ -71,11 +71,14 @@ def ActiveModules_Choice():
 
 # Passive modules
 def Passive_modules():
-	ledbar()
-	timer()
+	
+	
+	"""timer()
+	"""
 	buzer()
 	lcd()
 
-
+"""
 ActiveModules_Choice()
-Modules_Choice()
+Passive_modules()
+"""

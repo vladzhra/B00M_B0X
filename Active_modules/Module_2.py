@@ -1,5 +1,4 @@
-def module_2():
-    print("Lancement du module 2 ...")
+
 
 
 #!/usr/bin/env python  
@@ -121,10 +120,13 @@ def destroy():   #When program ending, the function is executed.
                 GPIO.output(pin, GPIO.LOW) #set all pins are low level(0V)   
                 GPIO.setup(pin, GPIO.IN)   #set all pins' mode is input  
 
-if __name__ == '__main__': #Program starting from here   
-        setup()   
-        try:  
-                loop()    
-        except KeyboardInterrupt:    
-                destroy()    
+def module_2():
+    print("Lancement du module 2 ...")
+
+        if __name__ == '__main__': #Program starting from here   
+                setup()   
+                try:  
+                        loop()    
+                except KeyboardInterrupt:    
+                        destroy()    
 
