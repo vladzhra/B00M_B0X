@@ -14,31 +14,36 @@ Module : Buzer
 import RPi.GPIO as GPIO
 import time
 
-BZRPin = 12
+SonPin = 12
 
 GPIO.setmode(GPIO.BOARD)       # Numbers pins by physical location
-GPIO.setup(BZRPin, GPIO.OUT)   # Set pin mode as output
-GPIO.output(BZRPin, GPIO.LOW)
+GPIO.setup(SonPin, GPIO.OUT)   # Set pin mode as output
+GPIO.output(SonPin, GPIO.LOW)
 
-p = GPIO.PWM(BZRPin, 70) # init frequency: 50HZ
-# Duty cycle: 50%
-print("let's go")
+p = GPIO.PWM(SonPin, 100000) # init frequency: 50HZ
 
+def count():
 
-
-def start():
     for i in range (10):
-        p.start(100)
-        time.sleep(0.5)
+        p.ChangeFrequency(900) # init frequency: 50HZ
+        p.start(10)
+        time.sleep(0.2)
         p.stop()
-        time.sleep(0.5)
+        time.sleep(1)
 
 def erreur():
-    for i in range (6):
-        p.start(100)
+    for i in range (3):
+        p.ChangeFrequency(50) # frequency: 50HZ
+        p.start(10) # Duty cycle: 50%
         time.sleep(0.1)
         p.stop()
         time.sleep(0.1)
 
-erreur()
+try:
+    while True:
+        print("Rien à éxecuter ici")
+        time.sleep(1)
 
+except KeyboardInterrupt:
+    p.stop()
+    GPIO.cleanup()

@@ -10,22 +10,22 @@ Module : Led Bar
   
 """
 
-	LedPin1 = 29
-	LedPin2 = 31
-	LedPin3 = 33
-	LedPin4 = 35
-	LedPin5 = 37
+LedPin1 = 29
+LedPin2 = 31
+LedPin3 = 33
+LedPin4 = 35
+LedPin5 = 37
 
-	GPIO.setmode(GPIO.BOARD)       # Numbers pins by physical location
-	GPIO.setup((LedPin1,LedPin2,LedPin3,LedPin4,LedPin5), GPIO.OUT)   # Set pin mode as output
-	GPIO.output((LedPin1,LedPin2,LedPin3,LedPin4,LedPin5), GPIO.HIGH) # Set pin to high(+3.3V) to off the led
+GPIO.setmode(GPIO.BOARD)       # Numbers pins by physical location
+GPIO.setup((LedPin1,LedPin2,LedPin3,LedPin4,LedPin5), GPIO.OUT)   # Set pin mode as output
+GPIO.output((LedPin1,LedPin2,LedPin3,LedPin4,LedPin5), GPIO.HIGH) # Set pin to high(+3.3V) to off the led
 
-	led_pins = [LedPin1,LedPin2,LedPin3,LedPin4,LedPin5]
+led_pins = [LedPin1,LedPin2,LedPin3,LedPin4,LedPin5]
 
-	GPIO.output(led_pins, GPIO.LOW) # Leds ON
-	for i in range (2):
-		pins_choice = random.choice(led_pins)	# Choice one pin
-		GPIO.output(pins_choice, GPIO.HIGH)  # Turn this pin OFF
-		led_pins.remove(pins_choice)	# Remove pin
+GPIO.output(led_pins, GPIO.LOW) # Leds ON
+for i in range (2):
+	pins_choice = random.choice(led_pins)	# Choice one pin
+	GPIO.output(pins_choice, GPIO.HIGH)  # Turn this pin OFF
+	led_pins.remove(pins_choice)	# Remove pin
 
-	print(led_pins)
+print(led_pins)
