@@ -1,17 +1,5 @@
-"""
-Author : Gabriel Lepinay | Vlad Zaharia
-Version : Python 3.7.3 - 32 bits
-IDE : Visual Studio Code
-Directory : /home/pi/Documents/Dev/B00mB0x/ledbar.py
-Description : The lcd module code 
+from time import sleep
 
-Module : Lcd screen
-    Objective : Use the screen to write timer and text
-  
-"""
-import smbus
-from time import sleep, strftime
-from datetime import datetime
 
 class Adafruit_CharLCD(object):
 
@@ -207,103 +195,8 @@ class Adafruit_CharLCD(object):
             else:
                 self.write4bits(ord(char), True)
 
-class PCF8574_I2C(object):
-    OUPUT = 0
-    INPUT = 1
-    
-    def __init__(self,address):
-        # Note you need to change the bus number to 0 if running on a revision 1 Raspberry Pi.
-        self.bus = smbus.SMBus(1)
-        self.address = address
-        self.currentValue = 0
-        self.writeByte(0)   #I2C test.
-        
-    def readByte(self):#Read PCF8574 all port of the data
-        #value = self.bus.read_byte(self.address)
-        return self.currentValue#value
-        
-    def writeByte(self,value):#Write data to PCF8574 port
-        self.currentValue = value
-        self.bus.write_byte(self.address,value)
-
-    def digitalRead(self,pin):#Read PCF8574 one port of the data
-        value = readByte()  
-        return (value&(1<<pin)==(1<<pin)) and 1 or 0
-        
-    def digitalWrite(self,pin,newvalue):#Write data to PCF8574 one port
-        value = self.currentValue #bus.read_byte(address)
-        if(newvalue == 1):
-            value |= (1<<pin)
-        elif (newvalue == 0):
-            value &= ~(1<<pin)
-        self.writeByte(value)   
-        
-class PCF8574_GPIO(object): # Standardization function interface
-    OUT = 0
-    IN = 1
-    BCM = 0
-    BOARD = 0
-    def __init__(self,address):
-        self.chip = PCF8574_I2C(address)
-        self.address = address
-    def setmode(self,mode):#PCF8574 port belongs to two-way IO, do not need to set the input and output model
-        pass
-    def setup(self,pin,mode):
-        pass
-    def input(self,pin):#Read PCF8574 one port of the data
-        return self.chip.digitalRead(pin)
-    def output(self,pin,value):#Write data to PCF8574 one port
-        self.chip.digitalWrite(pin,value)
-        
-def destroy():
-    lcd.clear()
-    lcd.noDisplay()
-    
-PCF8574_address = 0x27  # I2C address of the PCF8574 chip.
-PCF8574A_address = 0x3F  # I2C address of the PCF8574A chip.
-
-# Create PCF8574 GPIO adapter.
-try:
-    mcp = PCF8574_GPIO(PCF8574_address)
-except:
-    try:
-        mcp = PCF8574_GPIO(PCF8574A_address)
-    except:
-        print ('I2C Address Error !')
-        exit(1)
-# Create LCD, passing in MCP GPIO adapter.
-lcd = Adafruit_CharLCD(pin_rs=0, pin_e=2, pins_db=[4,5,6,7], GPIO=mcp)
-
-# ------------------------------------------------------------
-def test():
-    lcd.display()
-    mcp.output(3,1)     # turn on LCD backlight
-    lcd.begin(16,2)     # set number of LCD lines and columns
-    while True:         
-        lcd.setCursor(3,0)  # set cursor position
-        lcd.message( "Sheeesh" ) # display 
-        sleep(0.5)
-
-
-def timerTest() : 
-    lcd.display()
-    mcp.output(3,1)     # turn on LCD backlight
-    lcd.begin(16,2)     # set number of LCD lines and columns
-    for i in range(1):
-        lcd.setCursor(11,0)  # set cursor position
-        lcd.message("05:00")
-        sleep(1)
-        lcd.setCursor(11,0)
-        lcd.message("04:59")
-
-
-# -------------------------------------------------------------
 
 if __name__ == '__main__':
-    print ('Program is starting ... ')
-    try:
-        test()
-    except KeyboardInterrupt:
-        destroy()
-
-
+    lcd = Adafruit_CharLCD()
+    lcd.clear()
+    lcd.message("  Adafruit 16x2\n  Standard LCD")
