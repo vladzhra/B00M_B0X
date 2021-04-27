@@ -9,11 +9,11 @@ import time
 BIT0 = 3   
 BIT1 = 5  
 BIT2 = 26  
-
+BIT3 = 24  
 
 segCode = [0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f]  #0~9  
 pins = [11,12,13,15,16,18,22,7,3,5,24,26]  
-bits = [BIT0, BIT1, BIT2]  
+bits = [BIT0, BIT1, BIT2, BIT3]  
 
 def print_msg():  
         print ('Program is running...')  
@@ -106,16 +106,24 @@ def setup():
 def loop():  
         while True:  
                 seconds = 500
+                timeremain = 501
                 for j in range(seconds):
-                        timeremain = seconds - j
-
-                        if timeremain > 459 and timeremain < 500:
-                                seconds = 459
-                        elif timeremain > 359 and timeremain < 400:
-                                seconds = 359
-                        for i in range(150):  
-                                display_3(timeremain)  
                         
+                        timeremain = timeremain - 1
+                        if timeremain > 459 and timeremain < 500:
+                                timeremain = 459
+                        elif timeremain > 359 and timeremain < 400:
+                                timeremain = 359
+                        elif timeremain > 259 and timeremain < 300:
+                                timeremain = 259
+                        elif timeremain > 159 and timeremain < 200:
+                                timeremain = 159
+                        elif timeremain > 59 and timeremain < 100:
+                                timeremain = 59
+                        for i in range(150):
+                                display_3(timeremain) 
+                                
+                
                         
                         
 
