@@ -11,6 +11,7 @@ Module : Matrix keyboard
 """
 import RPi.GPIO as GPIO  
 import time  
+import random
 
 class keypad():
     # CONSTANTS   
@@ -84,35 +85,69 @@ class keypad():
                 GPIO.setup(self.COLUMN[j], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
+def mdp():
+    code = []
+    for i in range(5):
+        code.append(random.randint(1,9))
+    print(code)
+    return code
+
+def affichage(code):
+    # Chiffre en fonction de leurs position
+
+    etape1 = {1:3, 2:1, 3:7, 4:9, 5:6, 6:5, 7:2, 8:4, 9:8}
+    etape2 = {1:4, 2:etape1.get(code[0]), 3:1, 4:8, 5:7, 6:9, 7:etape1.get(code[0]), 8:etape1.get(code[0]), 9:5}
+    etape3 = {1:9, 2:etape2.get(code[1]), 3:5, 4:8, 5:2, 6:etape1.get(code[0]), 7:6, 8:1, 9:etape2.get(code[1])}
+    etape4 = {1:6, 2:etape2.get(code[1]), 3:etape1.get(code[0]), 4:etape1.get(code[0]), 5:etape3.get(code[2]), 6:8, 7:etape2.get(code[1]), 8:etape3.get(code[2]), 9:4}
+    etape5 = {1:etape3.get(code[2]), 2:etape1.get(code[0]), 3:etape2.get(code[1]), 4:etape4.get(code[3]), 5:etape1.get(code[0]), 6:etape3.get(code[2]), 7:etape4.get(code[3]), 8:etape2.get(code[1]), 9:etape1.get(code[0])}
+
+    # Etape 1
+    if len(code) == 5:
+        print(etape1.get(code[0]))
+    
+    # Etape 2
+    if len(code) == 4:
+        print(etape2.get(code[1]))
+    
+    # Etape 3
+    if len(code) == 3:
+        print(etape3.get(code[2]))
+    
+    # Etape 4
+    if len(code) == 2:
+        print(etape4.get(code[3]))
+    
+    # Etape 5
+    if len(code) == 1:
+        print(etape5.get(code[4]))
+        
+
+
+    
+
 
 def module_1():
     print("Lancement du module 1 ...")    
-    
+    code = mdp()
     # Initialize the keypad class
     kp = keypad()
-    code = [1,2,3,"A","*"]
-    code_test = []
     # Loop while waiting for a keypress
 
-    while True:
+    while len(code) != 0:
+        time.sleep(1)
         digit = None
+        # Execute a chaque fois
+        affichage(code)
         while digit == None:
-            digit = kp.getKey()    
-                    
-        # Print the result
-        if len(code_test) < 5:
-            code_test.append(digit)
+            digit = kp.getKey()
+        # Quand j'appuis
+        if digit == code[0]:
+            print("Good etape suivante")
+            code.pop(0) 
         else:
-            if code == code_test:
-                print("=======================\nCode bon")
-                print(code_test)
-            else:
-                print("Code mauvais \n[TIMER] -10 secondes \n=======================")
-                print(code_test)
-                for nb in range(len(code_test)):
-                    code_test.pop()
-        print(digit)
-        time.sleep(0.5)
+            print("code faux")
+       
+    print("Module validé")
 
 if __name__ == '__main__': 
     try:
