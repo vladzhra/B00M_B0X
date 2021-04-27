@@ -8,12 +8,12 @@ import time
 
 BIT0 = 3   
 BIT1 = 5  
-BIT2 = 24  
-BIT3 = 26  
+BIT2 = 26  
+
 
 segCode = [0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f]  #0~9  
 pins = [11,12,13,15,16,18,22,7,3,5,24,26]  
-bits = [BIT0, BIT1, BIT2, BIT3]  
+bits = [BIT0, BIT1, BIT2]  
 
 def print_msg():  
         print ('Program is running...')  
@@ -29,8 +29,8 @@ def digitalWriteByte(val):
         GPIO.output(22, val & (0x01 << 6))  
         GPIO.output(7,  val & (0x01 << 7))  
 
-def display_1():  
-        GPIO.output(BIT0, GPIO.LOW)   
+def display_1():   
+        GPIO.output(BIT0, GPIO.LOW)  
         for i in range(10):  
                 digitalWriteByte(segCode[i])  
                 time.sleep(0.5)  
@@ -93,7 +93,7 @@ def display_3(num):
                 time.sleep(0.002)  
                 GPIO.output(BIT3, GPIO.HIGH)   
         else:  
-                 print ('Out of range, num should be 0~9999 !' ) 
+                print ('Out of range, num should be 0~9999 !' ) 
 
 def setup():  
         GPIO.setmode(GPIO.BOARD)    #Number GPIOs by its physical location  
@@ -102,31 +102,31 @@ def setup():
                 GPIO.setup(pin, GPIO.OUT)    #set all pins' mode is output  
                 GPIO.output(pin, GPIO.HIGH)  #set all pins are high level(3.3V)  
 
+
 def loop():  
         while True:  
-                print_msg()  
-                display_1()  
-                time.sleep(1)  
-                display_2()  
-                time.sleep(1)  
+                seconds = 500
+                for j in range(seconds):
+                        timeremain = seconds - j
 
-                tmp = int(input('Please input a num(0~9999):'))  
-                for i in range(500):  
-                        display_3(tmp)  
-                time.sleep(1)  
+                        if timeremain > 459 and timeremain < 500:
+                                seconds = 459
+                        elif timeremain > 359 and timeremain < 400:
+                                seconds = 359
+                        for i in range(150):  
+                                display_3(timeremain)  
+                        
+                        
+                        
 
 def destroy():   #When program ending, the function is executed.   
-        for pin in pins:    
-                GPIO.output(pin, GPIO.LOW) #set all pins are low level(0V)   
-                GPIO.setup(pin, GPIO.IN)   #set all pins' mode is input  
+    for pin in pins:    
+        GPIO.output(pin, GPIO.LOW) #set all pins are low level(0V)   
+        GPIO.setup(pin, GPIO.IN)   #set all pins' mode is input  
 
-def module_2():
-    print("Lancement du module 2 ...")
-
-        if __name__ == '__main__': #Program starting from here   
-                setup()   
-                try:  
-                        loop()    
-                except KeyboardInterrupt:    
-                        destroy()    
-
+if __name__ == '__main__': #Program starting from here   
+    setup()   
+    try:  
+        loop()
+    except KeyboardInterrupt:    
+        destroy()    
