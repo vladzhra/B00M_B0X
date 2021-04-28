@@ -1,7 +1,14 @@
+"""
+Author : Gabriel Lepinay | Vlad Zaharia
+Version : Python 3.7.3 - 32 bits
+IDE : Visual Studio Code
+Directory : /home/pi/Documents/Dev/B00mB0x/Modules/Passives/timer
+Description : Timer's code
 
-
-
-#!/usr/bin/env python  
+Module : Timer
+    Objective : Set the timer of the bomb
+  
+"""
 
 import RPi.GPIO as GPIO  
 import time  

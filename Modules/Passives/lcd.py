@@ -2,11 +2,11 @@
 Author : Gabriel Lepinay | Vlad Zaharia
 Version : Python 3.7.3 - 32 bits
 IDE : Visual Studio Code
-Directory : /home/pi/Documents/Dev/B00mB0x/ledbar.py
-Description : The lcd module code 
+Directory : /home/pi/Documents/Dev/B00mB0x/Modules/Passives/lcd.py
+Description : LCD's code 
 
 Module : Lcd screen
-    Objective : Use the screen to write timer and text
+    Objective : Use the screen to write text
   
 """
 import smbus
@@ -254,11 +254,8 @@ class PCF8574_GPIO(object): # Standardization function interface
         return self.chip.digitalRead(pin)
     def output(self,pin,value):#Write data to PCF8574 one port
         self.chip.digitalWrite(pin,value)
-        
-def destroy():
-    lcd.clear()
-    lcd.noDisplay()
-    
+
+
 PCF8574_address = 0x27  # I2C address of the PCF8574 chip.
 PCF8574A_address = 0x3F  # I2C address of the PCF8574A chip.
 
@@ -274,42 +271,7 @@ except:
 # Create LCD, passing in MCP GPIO adapter.
 lcd = Adafruit_CharLCD(pin_rs=0, pin_e=2, pins_db=[4,5,6,7], GPIO=mcp)
 
-# ------------------------------------------------------------
-def test():
-    lcd.display()
-    mcp.output(3,1)     # turn on LCD backlight
-    lcd.begin(16,2)     # set number of LCD lines and columns
-    while True:         
-        lcd.setCursor(3,0)  # set cursor position
-        lcd.message( "Sheeesh" ) # display 
-        sleep(0.5)
 
-
-def timerTest() : 
-    lcd.display()
-    mcp.output(3,1)     # turn on LCD backlight
-    lcd.begin(16,2)     # set number of LCD lines and columns
-    for i in range(1):
-        lcd.setCursor(11,0)  # set cursor position
-        lcd.message("05:00")
-        sleep(1)
-        lcd.setCursor(11,0)
-        lcd.message("04:59")
-    
-def module_1():
-    lcd.display()
-    mcp.output(3,1)     # turn on LCD backlight
-    lcd.begin(16,2)     # set number of LCD lines and columns
-    lcd.setCursor(11,0)
-
-# -------------------------------------------------------------
-
-if __name__ == '__main__':
-    print ('Program is starting ... ')
-    try:
-        test()
-    except KeyboardInterrupt:
-        destroy()
 
 
 

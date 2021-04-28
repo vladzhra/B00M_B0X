@@ -2,7 +2,7 @@
 Author : Gabriel Lepinay | Vlad Zaharia
 Version : Python 3.7.3 - 32 bits
 IDE : Visual Studio Code
-Directory : /home/pi/Documents/Dev/B00mB0x/Module_1.py
+Directory : /home/pi/Documents/Dev/B00mB0x/Modules/Module_1.py
 Description : The first module code
 
 Module : Matrix keyboard 
@@ -13,7 +13,6 @@ import RPi.GPIO as GPIO
 import time  
 import random
 from Passives.lcd import *
-
 
 class keypad():
     # CONSTANTS   
@@ -100,7 +99,7 @@ def affichage(code, etape):
     mcp.output(3,1)     # turn on LCD backlight
     lcd.begin(16,2)     # set number of LCD lines and columns
     lcd.setCursor(11,0)
-    lcd.message("*oooo")
+    lcd.message("0OOOO")
 
     etape1 = {1:3, 2:1, 3:7, 4:9, 5:6, 6:5, 7:2, 8:4, 9:8}
     etape2 = {1:4, 2:etape1.get(code[0]), 3:1, 4:8, 5:7, 6:9, 7:etape1.get(code[0]), 8:etape1.get(code[0]), 9:5}
@@ -112,7 +111,6 @@ def affichage(code, etape):
     """
     # Etape 1
     if etape == 1:
-        
         lcd.setCursor(6,0)
         lcd.message("[" + str(etape1.get(code[0])) + "]")
         print(etape1.get(code[0]))
@@ -120,25 +118,25 @@ def affichage(code, etape):
     # Etape 2
     if etape == 2:
         lcd.setCursor(11,0)
-        lcd.message("**ooo")
+        lcd.message("00OOO")
         print(etape2.get(code[1]))
     
     # Etape 3
     if etape == 3:
         lcd.setCursor(11,0)
-        lcd.message("***oo")
+        lcd.message("000OO")
         print(etape3.get(code[2]))
     
     # Etape 4
     if etape == 4:
         lcd.setCursor(11,0)
-        lcd.message("****o")
+        lcd.message("0000O")
         print(etape4.get(code[3]))
     
     # Etape 5
     if etape == 5:
         lcd.setCursor(11,0)
-        lcd.message("*****")
+        lcd.message("00000")
         print(etape5.get(code[4]))
         
 
@@ -160,11 +158,11 @@ def module_1():
         # Quand j'appuis
         if digit == code[0]:
             lcd.setCursor(6,1)
-            print("Good etape suivante")
-            etape +=1
             lcd.message("Good")
+            etape +=1
         else:
-            print("code faux")
+            lcd.setCursor(6,1)
+            lcd.message("Faux")
        
     print("Module validé")
 

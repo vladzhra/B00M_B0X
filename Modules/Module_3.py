@@ -2,11 +2,11 @@
 Author : Gabriel Lepinay | Vlad Zaharia
 Version : Python 3.7.3 - 32 bits
 IDE : Visual Studio Code
-Directory : /home/pi/Documents/Dev/B00mB0x/buzer.py
-Description : The buzer module code
+Directory : /home/pi/Documents/Dev/B00mB0x/Modules/Modules_3.py
+Description : Buzer's code
 
-Module : Buzer
-    Objective : Set a buzer every second / we'll use it for the morse module
+Module : Morse
+    Objective : Set a buzer to use it for the morse module
 """
 
 import RPi.GPIO as GPIO

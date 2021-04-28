@@ -2,7 +2,7 @@
 Author : Gabriel Lepinay | Vlad Zaharia
 Version : Python 3.7.3 - 32 bits
 IDE : Visual Studio Code
-Directory : /home/pi/Documents/Dev/B00mB0x/ledbar.py
+Directory : /home/pi/Documents/Dev/B00mB0x/Modules/Passives/ledbar.py
 Description : The led bar module code
 
 Module : Led Bar
