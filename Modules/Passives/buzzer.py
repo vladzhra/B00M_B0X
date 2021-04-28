@@ -22,7 +22,7 @@ GPIO.output(SonPin, GPIO.LOW)
 
 p = GPIO.PWM(SonPin, 100000) # init frequency: 50HZ
 
-def count():
+def sonCompteur():
 
     for i in range (10):
         p.ChangeFrequency(900) # init frequency: 50HZ
@@ -41,25 +41,16 @@ def sonErreur():
         time.sleep(0.1)
     p.stop()
 
-def explosion():
+def sonExplosion():
     for freq in range (8000, 100, -200):
         p.start(10) # Duty cycle: 50%
         p.ChangeFrequency(freq) # frequency: 50HZ
         time.sleep(0.05)
     p.stop()
 
-def finModule():
+def sonFinModule():
     for freq in range (100, 8000, 200):
         p.start(10) # Duty cycle: 50%
         p.ChangeFrequency(freq) # frequency: 50HZ
         time.sleep(0.01)
     p.stop()
-        
-
-
-
-
-
-finModule()
-time.sleep(2)
-explosion()
