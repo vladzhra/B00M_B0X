@@ -12,6 +12,8 @@ Module : Matrix keyboard
 import RPi.GPIO as GPIO  
 import time  
 import random
+from Passives.lcd import *
+
 
 class keypad():
     # CONSTANTS   
@@ -92,43 +94,58 @@ def mdp():
     print(code)
     return code
 
-def affichage(code):
+def affichage(code, etape):
     # Chiffre en fonction de leurs position
+    lcd.display()
+    mcp.output(3,1)     # turn on LCD backlight
+    lcd.begin(16,2)     # set number of LCD lines and columns
+    lcd.setCursor(11,0)
+    lcd.message("*oooo")
 
     etape1 = {1:3, 2:1, 3:7, 4:9, 5:6, 6:5, 7:2, 8:4, 9:8}
     etape2 = {1:4, 2:etape1.get(code[0]), 3:1, 4:8, 5:7, 6:9, 7:etape1.get(code[0]), 8:etape1.get(code[0]), 9:5}
+    
+    """
     etape3 = {1:9, 2:etape2.get(code[1]), 3:5, 4:8, 5:2, 6:etape1.get(code[0]), 7:6, 8:1, 9:etape2.get(code[1])}
     etape4 = {1:6, 2:etape2.get(code[1]), 3:etape1.get(code[0]), 4:etape1.get(code[0]), 5:etape3.get(code[2]), 6:8, 7:etape2.get(code[1]), 8:etape3.get(code[2]), 9:4}
     etape5 = {1:etape3.get(code[2]), 2:etape1.get(code[0]), 3:etape2.get(code[1]), 4:etape4.get(code[3]), 5:etape1.get(code[0]), 6:etape3.get(code[2]), 7:etape4.get(code[3]), 8:etape2.get(code[1]), 9:etape1.get(code[0])}
-
+    """
     # Etape 1
-    if len(code) == 5:
+    if etape == 1:
+        
+        lcd.setCursor(6,0)
+        lcd.message("[" + str(etape1.get(code[0])) + "]")
         print(etape1.get(code[0]))
     
     # Etape 2
-    if len(code) == 4:
+    if etape == 2:
+        lcd.setCursor(11,0)
+        lcd.message("**ooo")
         print(etape2.get(code[1]))
     
     # Etape 3
-    if len(code) == 3:
+    if etape == 3:
+        lcd.setCursor(11,0)
+        lcd.message("***oo")
         print(etape3.get(code[2]))
     
     # Etape 4
-    if len(code) == 2:
+    if etape == 4:
+        lcd.setCursor(11,0)
+        lcd.message("****o")
         print(etape4.get(code[3]))
     
     # Etape 5
-    if len(code) == 1:
+    if etape == 5:
+        lcd.setCursor(11,0)
+        lcd.message("*****")
         print(etape5.get(code[4]))
         
-
-
-    
-
 
 def module_1():
     print("Lancement du module 1 ...")    
     code = mdp()
+    etape = 1
     # Initialize the keypad class
     kp = keypad()
     # Loop while waiting for a keypress
@@ -137,13 +154,15 @@ def module_1():
         time.sleep(1)
         digit = None
         # Execute a chaque fois
-        affichage(code)
+        affichage(code, etape)
         while digit == None:
             digit = kp.getKey()
         # Quand j'appuis
         if digit == code[0]:
+            lcd.setCursor(6,1)
             print("Good etape suivante")
-            code.pop(0) 
+            etape +=1
+            lcd.message("Good")
         else:
             print("code faux")
        
@@ -154,4 +173,8 @@ if __name__ == '__main__':
         module_1()
     except KeyboardInterrupt:  # When 'Ctrl+C' is pressed, the flowing code will be  executed.
         GPIO.cleanup()                     # Release resource
+        lcd.clear()
+        lcd.noDisplay()
+
+
 

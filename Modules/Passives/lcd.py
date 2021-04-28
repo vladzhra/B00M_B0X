@@ -295,7 +295,12 @@ def timerTest() :
         sleep(1)
         lcd.setCursor(11,0)
         lcd.message("04:59")
-
+    
+def module_1():
+    lcd.display()
+    mcp.output(3,1)     # turn on LCD backlight
+    lcd.begin(16,2)     # set number of LCD lines and columns
+    lcd.setCursor(11,0)
 
 # -------------------------------------------------------------
 
@@ -305,5 +310,6 @@ if __name__ == '__main__':
         test()
     except KeyboardInterrupt:
         destroy()
+
 
 
