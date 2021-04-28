@@ -13,6 +13,9 @@ import RPi.GPIO as GPIO
 import time  
 import random
 from Passives.lcd import *
+from Passives.erreur import Error
+
+Erreurs = Error()
 
 class keypad():
     # CONSTANTS   
@@ -161,8 +164,8 @@ def module_1():
             lcd.message("Good")
             etape +=1
         else:
-            lcd.setCursor(6,1)
-            lcd.message("Faux")
+            Erreurs.__add__()
+            
        
     print("Module validé")
 

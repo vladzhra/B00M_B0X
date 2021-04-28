@@ -9,12 +9,13 @@ Module : Aucun
     Objective : Code to work mistakes
 """
 
-from lcd import *
-from buzzer import *
+from Passives.lcd import *
+from Passives.buzzer import *
+import sys
 
 class Error: 
     """
-    Class Error : Object = Error(<nbError>)
+    Class Error : Object = Error()
 
     Methode :
         clear : reset to 0 the number of mistakes
@@ -23,9 +24,9 @@ class Error:
         __add__ : add one mistakes to the count
     """
 
-    def __init__(self, nbError):
+    def __init__(self):
 
-        self.nbError = nbError
+        self.nbError = 0
 
     def clear(self):
         self.nbError = 0
@@ -41,6 +42,10 @@ class Error:
         for i in range(28):      
             lcd.scrollDisplayRight()
             time.sleep(0.3)
+        sys.exit()
+
+
+
 
     def __str__(self):
         lcd.display()
@@ -60,6 +65,7 @@ class Error:
             self.__str__()
             sonErreur()
         else:
+            lcd.clear()
             lcd.setCursor(0, 0)
             lcd.message("BOOM")
             time.sleep(1.5)
