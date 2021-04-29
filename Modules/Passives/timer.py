@@ -72,21 +72,20 @@ def timer(b0, b1, b2):
         #         GPIO.output(BIT1, GPIO.HIGH)  
         # elif num >= 100 and num < 1000:  
 
-        GPIO.output(BIT0, GPIO.LOW)  
+        GPIO.output(BIT3, GPIO.LOW)  
         digitalWriteByte(segCode[b0])  
-        time.sleep(0.5)  
-        GPIO.output(BIT0, GPIO.HIGH)   
+        time.sleep(0.01)  
+        GPIO.output(BIT3, GPIO.HIGH)   
 
         GPIO.output(BIT1, GPIO.LOW)  
         digitalWriteByte(segCode[b1])  
-        time.sleep(0.5)  
+        time.sleep(0.01)  
         GPIO.output(BIT1, GPIO.HIGH)  
 
-        GPIO.output(BIT3, GPIO.LOW)  
+        GPIO.output(BIT0, GPIO.LOW)  
         digitalWriteByte(segCode[b2])  
-        time.sleep(0.5)  
-        GPIO.output(BIT3, GPIO.HIGH)   
-        print("timer tout court")
+        time.sleep(0.01)  
+        GPIO.output(BIT0, GPIO.HIGH)   
 
 
                 
@@ -109,18 +108,8 @@ def timer(b0, b1, b2):
         #         GPIO.output(BIT3, GPIO.HIGH)   
         # else:  
         #         print ('Out of range, num should be 0~9999 !' ) 
+temp =1
 
-def timerlaunch():
-        print("timerlaunch: Objt start")
-        tobj.start()
-        print("timerlaunch: threading Timercancel start")
-        threading.Timer(3.0,timercancel).start()
-        print("timerlaunch end")
-
-def timercancel():
-        print("timercancel begin")
-        tobj.cancel()
-        print("timercancel end")
 
 
 
@@ -133,32 +122,51 @@ def setup():
 
 
 def loop():  
-        while True:  
-                seconds = 500
-                timeremain = 501
-                for j in range(seconds):
-                        
-                        timeremain = timeremain - 1
-                        if timeremain > 459 and timeremain < 500:
-                                timeremain = 459
-                        elif timeremain > 359 and timeremain < 400:
-                                timeremain = 359
-                        elif timeremain > 259 and timeremain < 300:
-                                timeremain = 259
-                        elif timeremain > 159 and timeremain < 200:
-                                timeremain = 159
-                        elif timeremain > 59 and timeremain < 100:
-                                timeremain = 59
-                        for i in range(150):
-                                timer(0,1,2)
-                                time.sleep(0.5) 
+        seconds = 300
+        countdown = seconds
+        for i in range(seconds):
+                mins, secs = divmod(countdown, 60)
+                dizainesec = secs % 100 / 10  
+                unitesec = secs % 10
+                print(countdown , mins, secs, mins, dizainesec, unitesec)
+                loopdisplay(mins, dizainesec, unitesec)
+                countdown -= 1
+        
+        print("boom")
+
+        
+
+
+
+
+
+        # seconds = 500
+        # timeremain = 501
+        # for j in range(seconds):
+                
+        #         timeremain = timeremain - 1
+        #         if timeremain > 459 and timeremain < 500:
+        #                 timeremain = 459
+        #         elif timeremain > 359 and timeremain < 400:
+        #                 timeremain = 359
+        #         elif timeremain > 259 and timeremain < 300:
+        #                 timeremain = 259
+        #         elif timeremain > 159 and timeremain < 200:
+        #                 timeremain = 159
+        #         elif timeremain > 59 and timeremain < 100:
+        #                 timeremain = 59
+        #         for i in range(150):
+        #                 timer(0,1,2)
+        #                 time.sleep(0.5) 
                                 
                 
-def loopdisplay():
-        while True:
-                timer(0,1,2)
+def loopdisplay(a,b,c):
+        timeout = time.time() + 1   # 1 sec from now
+        while time.time() < timeout:
+                
+                timer(a,b,c)
 
-tobj = threading.Timer(0,loopdisplay)                       
+                   
 
 def destroy():   #When program ending, the function is executed.   
     for pin in pins:    
@@ -170,7 +178,7 @@ def destroy():   #When program ending, the function is executed.
 if __name__ == '__main__': #Program starting from here   
     setup()   
     try:  
-            timerlaunch()
+        loop()
 
     except KeyboardInterrupt:    
         destroy()    
