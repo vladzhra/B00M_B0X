@@ -89,85 +89,70 @@ class keypad():
                 GPIO.setup(self.COLUMN[j], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
-def mdp():
-    code = []
-    for i in range(5):
-        code.append(random.randint(1,9))
-    print(code)
-    return code
+def accept():
+    pass
 
-def affichage(code, etape):
-    # Chiffre en fonction de leurs position
-    lcd.display()
+def cancel():
+    pass
+
+def delete():
+    pass
+
+MutiTap = {accept(): "A", cancel():"C", delete():"D" , " ":"0", "A":"8", "B":"88", "C":"888", "D":"1", "E":"11", "F":"6", "G":"66", "H":"666", "I":"3", "J":"33", "K":"7", "L":"77", "M":"#", "N":"##", "O":"###", "P":"9", "Q":"99", "R":"4", "S":"44", "T":"*", "U":"**", "V":"***", "W":"5", "X":"55", "Y":"2", "Z":"22"}
+
+# Mot Court < 7 
+# 7 < Mot Normal < 11
+# Mot long > 11
+motsCourt = ["FLUX", "LINUX", "HTML", "LOG", "WI FI", "LIEN", "INTEL", "OCTET", "VIRUS", "PYTHON"]
+
+motsNormaux = ["LOGICIEL", "CONSOLE", "ORDINATEUR", "HACKEUR", "PIRATAGE", "INTERNET", "RESEAUX", "STOCKAGE", "ROUTEUR", "PARE FEU"]
+      
+motsLongs = ["CRYPTOLOGIE", "APPLICATION", "DEVELOPPEUR", "DEVELOPPEMENT", "CARTE GRAPHIQUE", "SUPER CALCULATEUR", "MICRO ORDINATEUR", "INTERFACE RESEAU", "SYSTEME DEXPLOITATION", "INTELLIGENCE ARTIFICIELLE"]
+
+mot = ""
+
+def choixMot():
+    if etape == 1:
+        mot = motsCourt[random.randint(0, len(motsCourt)-1)]
+        afficherMot()
+    elif etape == 2:
+        mot = motsNormaux[random.randint(0, len(motsCourt)-1)]
+        afficherMot()
+    elif etape == 3:
+        mot = motsLongs[random.randint(0, len(motsCourt)-1)]
+        afficherMot()
+
+def afficherMot():
     mcp.output(3,1)     # turn on LCD backlight
     lcd.begin(16,2)     # set number of LCD lines and columns
-    lcd.setCursor(11,0)
-    lcd.message("0OOOO")
+    lcd.setCursor(0,0)  # set cursor position
+    lcd.message(mot)
 
-    etape1 = {1:3, 2:1, 3:7, 4:9, 5:6, 6:5, 7:2, 8:4, 9:8}
-    etape2 = {1:4, 2:etape1.get(code[0]), 3:1, 4:8, 5:7, 6:9, 7:etape1.get(code[0]), 8:etape1.get(code[0]), 9:5}
-    
-    """
-    etape3 = {1:9, 2:etape2.get(code[1]), 3:5, 4:8, 5:2, 6:etape1.get(code[0]), 7:6, 8:1, 9:etape2.get(code[1])}
-    etape4 = {1:6, 2:etape2.get(code[1]), 3:etape1.get(code[0]), 4:etape1.get(code[0]), 5:etape3.get(code[2]), 6:8, 7:etape2.get(code[1]), 8:etape3.get(code[2]), 9:4}
-    etape5 = {1:etape3.get(code[2]), 2:etape1.get(code[0]), 3:etape2.get(code[1]), 4:etape4.get(code[3]), 5:etape1.get(code[0]), 6:etape3.get(code[2]), 7:etape4.get(code[3]), 8:etape2.get(code[1]), 9:etape1.get(code[0])}
-    """
-    # Etape 1
-    if etape == 1:
-        lcd.setCursor(6,0)
-        lcd.message("[" + str(etape1.get(code[0])) + "]")
-        print(etape1.get(code[0]))
-    
-    # Etape 2
-    if etape == 2:
-        lcd.setCursor(11,0)
-        lcd.message("00OOO")
-        print(etape2.get(code[1]))
-    
-    # Etape 3
-    if etape == 3:
-        lcd.setCursor(11,0)
-        lcd.message("000OO")
-        print(etape3.get(code[2]))
-    
-    # Etape 4
-    if etape == 4:
-        lcd.setCursor(11,0)
-        lcd.message("0000O")
-        print(etape4.get(code[3]))
-    
-    # Etape 5
-    if etape == 5:
-        lcd.setCursor(11,0)
-        lcd.message("00000")
-        print(etape5.get(code[4]))
-        
+def verifierMot():
+    if code == mot:
+        print("good")
 
 def module_1():
     print("Lancement du module 1 ...")    
-    code = mdp()
-    etape = 1
     # Initialize the keypad class
     kp = keypad()
+    etape = 0
     # Loop while waiting for a keypress
-
-    while len(code) != 0:
-        time.sleep(1)
+    while etape != 4:
         digit = None
-        # Execute a chaque fois
-        affichage(code, etape)
         while digit == None:
-            digit = kp.getKey()
-        # Quand j'appuis
-        if digit == code[0]:
-            lcd.setCursor(6,1)
-            lcd.message("Good")
-            etape +=1
-        else:
-            Erreurs.__add__()
-            
-       
-    print("Module validé")
+            digit = kp.getKey()    
+        # Print the result
+        print(digit)
+        time.sleep(0.3)
+
+    else:
+        print("Module reussi")
+
+    # Loop while waiting for a keypress
+   
+
+
 
 if __name__ == '__main__': 
     try:
