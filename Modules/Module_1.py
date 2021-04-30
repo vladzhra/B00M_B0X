@@ -16,6 +16,7 @@ from Passives.lcd import *
 from Passives.erreur import Error
 
 Erreurs = Error()
+etape = 1
 
 class keypad():
     # CONSTANTS   
@@ -88,104 +89,120 @@ class keypad():
         for j in range(len(self.COLUMN)):
                 GPIO.setup(self.COLUMN[j], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
+class Module1():
+    """
+    init : object = mot("") # Nothing into ""
+    """
 
-def accept():
-    pass
+    def __init__(self, mot):
 
-def cancel():
-    pass
+        self.lettre = ""
+        self.motFinal = ""
+        self.index = 0
 
-def delete():
-    pass
+    def __str__(mot):
+        lcd.setCursor(0,0)
+        lcd.message(self.mot)
+        print(self.mot)       
+
+    def accept(self):
+        print("Accpet")
+
+    def cancel(self):
+        print("Cancel")
+
+    def delete(self):
+        print("Delete")
+
+    def conversion(self, input):
+
+        if len(lettre) == 0:
+            lettre += nb
+            lcd.setCursor(index,1)
+            lcd.message(MultiTap.get(lettre))
+            print(lettre)
+
+        elif len(lettre) == 1:
+            print("coucou")
+            if lettre[0] == nb:
+                lettre += nb
+                lcd.setCursor(index,1)
+                lcd.message(lettre)
+                
+            else:
+                index += 1
+                motFinal += MultiTap.get(lettre)
+                lettre.clear()
+                lettre += nb
+                lcd.setCursor(index,1)
+                lcd.message(MultiTap.get(nb))
+            
+                
+    """
+        elif len(lettre) == 2:
+            if lettre[0] == nb:
+                lettre += nb
+            else:
+                lcd.setCursor(index,1)
+                lcd.message(MultiTap.get(nb))
+                motFinal = motFinal + MultiTap.get(lettre)
+                index += 1
+                lettre.clear()
+                lettre += nb
+
+        elif len(lettre) >= 3:
+                lcd.setCursor(index,1)
+                lcd.message(MultiTap.get(nb))
+                motFinal = motFinal + MultiTap.get(lettre)
+                index += 1
+                lettre.clear()
+                lettre += nb
+    """
+
+    def verifierMot(self):
+        if code == motFinal:
+            etape += 1
+            choixMot()
 
 
-MultiTap = {"A":accept(), "C":cancel(), "D":delete(), "0":" ", "8":"A", "88":"B", "888":"C", "1":"D", "11":"E", "6":"F", "66":"G", "666":"H", "3":"I", "33":"J", "7":"K", "77":"L", "#":"M", "##":"N", "###":"O", "9":"P", "99":"Q", "4":"R", "44":"S", "*":"T", "**":"U", "***":"V", "5":"W", "55":"X", "2":"Y", "22":"Z"}
+x = Module1()
+
+MultiTap = {"A":x.accept(), "C":x.cancel(), "D":x.delete(), "0":" ", "8":"A", "88":"B", "888":"C", "1":"D", "11":"E", "6":"F", "66":"G", "666":"H", "3":"I", "33":"J", "7":"K", "77":"L", "#":"M", "##":"N", "###":"O", "9":"P", "99":"Q", "4":"R", "44":"S", "*":"T", "**":"U", "***":"V", "5":"W", "55":"X", "2":"Y", "22":"Z"}
 # Mot Court < 7 
 # 7 < Mot Normal < 11
 # Mot long > 11
+        
+def choixMot():        
+        motsCourt = ["FLUX", "LINUX", "HTML", "LOG", "WI FI", "LIEN", "INTEL", "OCTET", "VIRUS", "PYTHON"]
+        motsNormaux = ["LOGICIEL", "CONSOLE", "ORDINATEUR", "HACKEUR", "PIRATAGE", "INTERNET", "RESEAUX", "STOCKAGE", "ROUTEUR", "PARE FEU"]    
+        motsLongs = ["CRYPTOLOGIE", "APPLICATION", "DEVELOPPEUR", "DEVELOPPEMENT", "CARTE GRAPHIQUE", "GABY ET VLADOU", "MICRO ORDINATEUR", "INTERFACE RESEAU"]
 
-motsCourt = ["FLUX", "LINUX", "HTML", "LOG", "WI FI", "LIEN", "INTEL", "OCTET", "VIRUS", "PYTHON"]
+        mot = ""
 
-motsNormaux = ["LOGICIEL", "CONSOLE", "ORDINATEUR", "HACKEUR", "PIRATAGE", "INTERNET", "RESEAUX", "STOCKAGE", "ROUTEUR", "PARE FEU"]
-      
-motsLongs = ["CRYPTOLOGIE", "APPLICATION", "DEVELOPPEUR", "DEVELOPPEMENT", "CARTE GRAPHIQUE", "GABY ET VLADOU", "MICRO ORDINATEUR", "INTERFACE RESEAU"]
-
-etape = 1
-motFinal = ""
-
-def afficherMot(mot):
-    lcd.setCursor(0,0)
-    lcd.message(mot)
-    print(mot)
-
-def choixMot():
-    mot = ""
-    if etape == 1:
-        mot = motsCourt[random.randint(0, len(motsCourt)-1)]
-        afficherMot(mot)
-    elif etape == 2:
-        mot = motsNormaux[random.randint(0, len(motsCourt)-1)]
-        afficherMot(mot)
-    elif etape == 3:
-        mot = motsLongs[random.randint(0, len(motsCourt)-1)]
-        afficherMot(mot)
-
-index = 0
-lettre = ""
-def traduction(nb, lettre):
-
-    if len(lettre) == 0:
-        lettre = lettre + nb
-        print("Lettre :", lettre)
-
-    elif len(lettre) == 1:
-        if lettre[0] == nb:
-            lettre = lettre + nb
-        else:
-            lcd.setCursor(index,1)
-            lcd.message(MultiTap.get(nb))
-            motFinal = motFinal + MultiTap.get(lettre)
-            index += 1
-            lettre.clear()
-            lettre = lettre + nb
-
-    elif len(lettre) == 2:
-        if lettre[0] == nb:
-            lettre = lettre + nb
-        else:
-            lcd.setCursor(index,1)
-            lcd.message(MultiTap.get(nb))
-            motFinal = motFinal + MultiTap.get(lettre)
-            index += 1
-            lettre.clear()
-            lettre = lettre + nb
-
-    elif len(lettre) >= 3:
-            lcd.setCursor(index,1)
-            lcd.message(MultiTap.get(nb))
-            motFinal = motFinal + MultiTap.get(lettre)
-            index += 1
-            lettre.clear()
-            lettre = lettre + nb
+        if etape == 1:
+            mot = motsCourt[random.randint(0, len(motsCourt)-1)]
+        elif etape == 2:
+            mot = motsNormaux[random.randint(0, len(motsCourt)-1)]
+        elif etape == 3:
+            mot = motsLongs[random.randint(0, len(motsCourt)-1)]
 
 
-def verifierMot():
-    if code == motFinal:
-        print("good")
+def test():
+
+    x.__str__()
 
 def module_1():
     print("Lancement du module 1 ...")    
     # Initialize the keypad class
     kp = keypad()
-
     choixMot()
     # Loop while waiting for a keypress
     while etape != 4:
         digit = None
         while digit == None:
-            digit = kp.getKey()    
+            digit = kp.getKey()   
         # Print the result
-        traduction(str(digit), lettre)
+        traduction(str(digit), lettre, index)
         time.sleep(0.3)
 
     else:
@@ -200,11 +217,10 @@ if __name__ == '__main__':
     try:
         mcp.output(3,1)     # turn on LCD backlight
         lcd.begin(16,2)     # set number of LCD lines and columns
-        module_1()
+        test()
     except KeyboardInterrupt:  # When 'Ctrl+C' is pressed, the flowing code will be  executed.
         GPIO.cleanup()                     # Release resource
         lcd.clear()
         lcd.noDisplay()
-
 
 
