@@ -94,16 +94,21 @@ class Module1():
     init : object = mot("") # Nothing into ""
     """
 
-    def __init__(self, mot):
+    def __init__(self, input):
 
+        self.input = input
+        self.MultiTap = {"A":x.accept(), "C":x.cancel(), "D":x.delete(), "0":" ", "8":"A", "88":"B", "888":"C", "1":"D", "11":"E", "6":"F", "66":"G", "666":"H",
+                        "3":"I", "33":"J", "7":"K", "77":"L", "#":"M", "##":"N", "###":"O", "9":"P", "99":"Q", "4":"R", "44":"S", "*":"T", "**":"U", "***":"V", 
+                        "5":"W", "55":"X", "2":"Y", "22":"Z"}
         self.lettre = ""
         self.motFinal = ""
         self.index = 0
+        self.conversion()
 
-    def __str__(mot):
+    def __str__(self, mot):
         lcd.setCursor(0,0)
-        lcd.message(self.mot)
-        print(self.mot)       
+        lcd.message(mot)
+        print(mot)       
 
     def accept(self):
         print("Accpet")
@@ -114,28 +119,28 @@ class Module1():
     def delete(self):
         print("Delete")
 
-    def conversion(self, input):
+    def conversion(self):
 
-        if len(lettre) == 0:
-            lettre += nb
-            lcd.setCursor(index,1)
-            lcd.message(MultiTap.get(lettre))
-            print(lettre)
+        if len(self.lettre) == 0:
+            self.lettre += self.input
+            lcd.setCursor(self.index,1)
+            lcd.message(self.MultiTap.get(self.lettre))
+            print(self.lettre)
 
-        elif len(lettre) == 1:
+        elif len(self.lettre) == 1:
             print("coucou")
-            if lettre[0] == nb:
-                lettre += nb
-                lcd.setCursor(index,1)
-                lcd.message(lettre)
+            if self.lettre[0] == self.input:
+                self.lettre += self.input
+                lcd.setCursor(self.index,1)
+                lcd.message(self.lettre)
                 
             else:
-                index += 1
-                motFinal += MultiTap.get(lettre)
-                lettre.clear()
-                lettre += nb
-                lcd.setCursor(index,1)
-                lcd.message(MultiTap.get(nb))
+                self.index += 1
+                self.motFinal += self.MultiTap.get(lettre)
+                self.lettre.clear()
+                self.lettre += self.input
+                lcd.setCursor(self.index,1)
+                lcd.message(self.MultiTap.get(self.input))
             
                 
     """
@@ -165,9 +170,9 @@ class Module1():
             choixMot()
 
 
-x = Module1()
 
-MultiTap = {"A":x.accept(), "C":x.cancel(), "D":x.delete(), "0":" ", "8":"A", "88":"B", "888":"C", "1":"D", "11":"E", "6":"F", "66":"G", "666":"H", "3":"I", "33":"J", "7":"K", "77":"L", "#":"M", "##":"N", "###":"O", "9":"P", "99":"Q", "4":"R", "44":"S", "*":"T", "**":"U", "***":"V", "5":"W", "55":"X", "2":"Y", "22":"Z"}
+
+
 # Mot Court < 7 
 # 7 < Mot Normal < 11
 # Mot long > 11
@@ -187,9 +192,7 @@ def choixMot():
             mot = motsLongs[random.randint(0, len(motsCourt)-1)]
 
 
-def test():
 
-    x.__str__()
 
 def module_1():
     print("Lancement du module 1 ...")    
@@ -202,6 +205,8 @@ def module_1():
         while digit == None:
             digit = kp.getKey()   
         # Print the result
+        x = Module1(digit)
+
         traduction(str(digit), lettre, index)
         time.sleep(0.3)
 
@@ -217,7 +222,7 @@ if __name__ == '__main__':
     try:
         mcp.output(3,1)     # turn on LCD backlight
         lcd.begin(16,2)     # set number of LCD lines and columns
-        test()
+        module_1()
     except KeyboardInterrupt:  # When 'Ctrl+C' is pressed, the flowing code will be  executed.
         GPIO.cleanup()                     # Release resource
         lcd.clear()
