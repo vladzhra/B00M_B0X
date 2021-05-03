@@ -11,6 +11,7 @@ Module : Morse
 
 import RPi.GPIO as GPIO
 import time
+import random
 
 BZRPin = 12
 
@@ -42,12 +43,14 @@ def A() :
 
     point()
     tiret()
+    espace()
 
 def B() :
     
     tiret()
     point()
     point()
+    espace()
 
 def C() :
     
@@ -55,12 +58,14 @@ def C() :
     point()
     tiret()
     point()
+    espace()
 
 def D() :
     
     tiret()
     point()
     point()
+    espace()
 
 def zero() :
 
@@ -69,6 +74,7 @@ def zero() :
     tiret()
     tiret()
     tiret()
+    espace()
 
 def un() :
 
@@ -77,6 +83,7 @@ def un() :
     tiret()
     tiret()
     tiret()
+    espace()
 
 def deux() :
 
@@ -85,6 +92,7 @@ def deux() :
     tiret()
     tiret()
     tiret()
+    espace()
 
 def trois() :
 
@@ -93,6 +101,7 @@ def trois() :
     point()
     tiret()
     tiret()
+    espace()
 
 def quatre() :
 
@@ -101,6 +110,7 @@ def quatre() :
     point()
     point()
     tiret()
+    espace()
 
 def cinq() :
 
@@ -109,6 +119,7 @@ def cinq() :
     point()
     point()
     point()
+    espace()
 
 def six() :
 
@@ -117,6 +128,7 @@ def six() :
     point()
     point()
     point()
+    espace()
 
 def sept() :
 
@@ -125,6 +137,7 @@ def sept() :
     point()
     point()
     point()
+    espace()
 
 def huit() :
 
@@ -133,6 +146,7 @@ def huit() :
     tiret()
     point()
     point()
+    espace()
 
 def neuf() :
 
@@ -142,6 +156,7 @@ def neuf() :
     tiret()
     tiret()
     point()
+    espace()
 
 def Diez() : 
 
@@ -149,6 +164,7 @@ def Diez() :
     tiret()
     point()
     point()
+    espace()
 
 def Etoile() :
 
@@ -156,18 +172,32 @@ def Etoile() :
     point()
     tiret()
     tiret()
+    espace()
+
+
+def shortpassword():
+    print("shortpassword")
+    espace()
+    for i in range(6):
+        random.choice(A(), B(), C(), D(), zero(), un(), deux(), trois(), quatre(), cinq(), six(), sept(), huit(), neuf(), Diez(), Etoile())
+    
+def mediumpassword():
+    print("mediumpassword")
+    espace()
+    for i in range(8):
+        random.choice(A(), B(), C(), D(), zero(), un(), deux(), trois(), quatre(), cinq(), six(), sept(), huit(), neuf(), Diez(), Etoile())
+
+def strongpassword():
+    print("strongpassword")
+    espace()
+    for i in range(10):
+        random.choice(A(), B(), C(), D(), zero(), un(), deux(), trois(), quatre(), cinq(), six(), sept(), huit(), neuf(), Diez(), Etoile())
+
 
 try:
     while True:
         
-        cinq()
-        espace()
-        C()
-        espace()
-        neuf()
-
-
-
+        random.choice(shortpassword(), mediumpassword(), strongpassword())
 
 except KeyboardInterrupt:
     p.stop()
