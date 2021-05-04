@@ -191,38 +191,55 @@ def shortpassword():
         code = compile('fonction'+n+'()','toto','exec')
         eval(code)
     print(liste)    
-
     
 def mediumpassword():
 
     randintvariable = random.randint(8,10)
     for i in range(randintvariable):
         n = str(random.choice([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]))
-
+        liste.append(n)
+        print(n)
         code = compile('fonction'+n+'()','titi','exec')
         eval(code)
+    print(liste) 
 
 def strongpassword():
 
     randintvariable = random.randint(10,12)
     for i in range(randintvariable):
         n = str(random.choice([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]))
-
+        liste.append(n)
         code = compile('fonction'+n+'()','tutu','exec')
         eval(code)
+    print(liste) 
     
 
 
 
-try:
-    while True:
-        espace()
-        shortpassword()
-        espace()
-        #mediumpassword()
-        espace()
-        #strongpassword())
+espace()
+# shortpassword()
+# espace()
+mediumpassword()
+# espace()
+#strongpassword())
 
-except KeyboardInterrupt:
-    p.stop()
-    GPIO.cleanup()
+p.stop()
+GPIO.cleanup()
+
+
+
+# try:
+#     while True:
+        
+#         espace()
+#         # shortpassword()
+#         # espace()
+#         mediumpassword()
+#         # espace()
+#         #strongpassword())
+
+# except KeyboardInterrupt:
+#     p.stop()
+#     GPIO.cleanup()
+
+
