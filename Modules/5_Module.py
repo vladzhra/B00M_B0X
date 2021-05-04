@@ -27,13 +27,15 @@ def trois():
 def quatre():
     print("bzz quatre")
 
-
+test = test()
+un = un()
+deux = deux()
 
 def shortpassword():
     print("shortpassword")
 
 
-    random.choice(test, un, deux)
+    # print(random.choice([test, un, deux]))
 
 def mediumpassword():
     print("mediumpassword")

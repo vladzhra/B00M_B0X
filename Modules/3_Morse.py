@@ -35,24 +35,136 @@ def tiret() :   #Son long
     p.stop()
     time.sleep(0.5)
 
-def espace(): 
+def espace():   #Espace
     p.stop()
     time.sleep(2.5)
 
-def A() :
+
+
+    
+
+
+def fonction0() : #0
+
+    tiret()
+    tiret()
+    tiret()
+    tiret()
+    tiret()
+    espace()
+
+def fonction1() : #1
+
+    point()
+    tiret()
+    tiret()
+    tiret()
+    tiret()
+    espace()
+
+def fonction2() : #2
+
+    point()
+    point()
+    tiret()
+    tiret()
+    tiret()
+    espace()
+
+def fonction3() : #3
+
+    point()
+    point()
+    point()
+    tiret()
+    tiret()
+    espace()
+
+def fonction4() : #4
+
+    point()
+    point()
+    point()
+    point()
+    tiret()
+    espace()
+
+def fonction5() : #5
+
+    point()
+    point()
+    point()
+    point()
+    point()
+    espace()
+
+def fonction6() : #6
+
+    tiret()
+    point()
+    point()
+    point()
+    point()
+    espace()
+
+def fonction7() : #7
+
+    tiret()
+    tiret()
+    point()
+    point()
+    point()
+    espace()
+
+def fonction8() : # 8
+
+    tiret()
+    tiret()
+    tiret()
+    point()
+    point()
+    espace()
+
+def fonction9() : #9
+
+    tiret()
+    tiret()
+    tiret()
+    tiret()
+    tiret()
+    point()
+    espace()
+
+def fonction10() :  ##
+
+    tiret()
+    tiret()
+    point()
+    point()
+    espace()
+
+def fonction11() : #*
+
+    tiret()
+    point()
+    tiret()
+    tiret()
+    espace()
+
+def fonction12() : #A
 
     point()
     tiret()
     espace()
 
-def B() :
+def fonction13() : #B
     
     tiret()
     point()
     point()
     espace()
 
-def C() :
+def fonction14() : #C
     
     tiret()
     point()
@@ -60,144 +172,56 @@ def C() :
     point()
     espace()
 
-def D() :
-    
+def fonction15() : #D
     tiret()
     point()
     point()
     espace()
 
-def zero() :
 
-    tiret()
-    tiret()
-    tiret()
-    tiret()
-    tiret()
-    espace()
+liste =[]
 
-def un() :
-
-    point()
-    tiret()
-    tiret()
-    tiret()
-    tiret()
-    espace()
-
-def deux() :
-
-    point()
-    point()
-    tiret()
-    tiret()
-    tiret()
-    espace()
-
-def trois() :
-
-    point()
-    point()
-    point()
-    tiret()
-    tiret()
-    espace()
-
-def quatre() :
-
-    point()
-    point()
-    point()
-    point()
-    tiret()
-    espace()
-
-def cinq() :
-
-    point()
-    point()
-    point()
-    point()
-    point()
-    espace()
-
-def six() :
-
-    tiret()
-    point()
-    point()
-    point()
-    point()
-    espace()
-
-def sept() :
-
-    tiret()
-    tiret()
-    point()
-    point()
-    point()
-    espace()
-
-def huit() :
-
-    tiret()
-    tiret()
-    tiret()
-    point()
-    point()
-    espace()
-
-def neuf() :
-
-    tiret()
-    tiret()
-    tiret()
-    tiret()
-    tiret()
-    point()
-    espace()
-
-def Diez() : 
-
-    tiret()
-    tiret()
-    point()
-    point()
-    espace()
-
-def Etoile() :
-
-    tiret()
-    point()
-    tiret()
-    tiret()
-    espace()
-
-
+        
 def shortpassword():
-    print("shortpassword")
-    espace()
-    for i in range(6):
-        random.choice(A(), B(), C(), D(), zero(), un(), deux(), trois(), quatre(), cinq(), six(), sept(), huit(), neuf(), Diez(), Etoile())
+
+    randintvariable = random.randint(6,8)
+    for i in range(randintvariable):
+        n = str(random.choice([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]))
+        liste.append(n)
+        code = compile('fonction'+n+'()','toto','exec')
+        eval(code)
+    print(liste)    
+
     
 def mediumpassword():
-    print("mediumpassword")
-    espace()
-    for i in range(8):
-        random.choice(A(), B(), C(), D(), zero(), un(), deux(), trois(), quatre(), cinq(), six(), sept(), huit(), neuf(), Diez(), Etoile())
+
+    randintvariable = random.randint(8,10)
+    for i in range(randintvariable):
+        n = str(random.choice([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]))
+
+        code = compile('fonction'+n+'()','titi','exec')
+        eval(code)
 
 def strongpassword():
-    print("strongpassword")
-    espace()
-    for i in range(10):
-        random.choice(A(), B(), C(), D(), zero(), un(), deux(), trois(), quatre(), cinq(), six(), sept(), huit(), neuf(), Diez(), Etoile())
+
+    randintvariable = random.randint(10,12)
+    for i in range(randintvariable):
+        n = str(random.choice([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]))
+
+        code = compile('fonction'+n+'()','tutu','exec')
+        eval(code)
+    
+
 
 
 try:
     while True:
-        
-        random.choice(shortpassword(), mediumpassword(), strongpassword())
+        espace()
+        shortpassword()
+        espace()
+        #mediumpassword()
+        espace()
+        #strongpassword())
 
 except KeyboardInterrupt:
     p.stop()
