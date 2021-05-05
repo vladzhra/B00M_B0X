@@ -23,7 +23,7 @@ BIT3 = 26
         
 
 segCode = [0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f]  #0~9  
-pins = [11,12,13,15,16,18,22,7,3,5,24,26]  
+pins = [11,12,13,15,16,18,22,7,3,5,26]  # Here to change pins 
 bits = [BIT0, BIT1, BIT2, BIT3]  
 
 
@@ -121,31 +121,8 @@ def loop():
         
         print("Boom TA PERDU HAHAHA")
 
-        
+# def Erreur():
 
-
-
-
-
-        # seconds = 500
-        # timeremain = 501
-        # for j in range(seconds):
-                
-        #         timeremain = timeremain - 1
-        #         if timeremain > 459 and timeremain < 500:
-        #                 timeremain = 459
-        #         elif timeremain > 359 and timeremain < 400:
-        #                 timeremain = 359
-        #         elif timeremain > 259 and timeremain < 300:
-        #                 timeremain = 259
-        #         elif timeremain > 159 and timeremain < 200:
-        #                 timeremain = 159
-        #         elif timeremain > 59 and timeremain < 100:
-        #                 timeremain = 59
-        #         for i in range(150):
-        #                 timer(0,1,2)
-        #                 time.sleep(0.5) 
-                                
                 
 def loopdisplay(a,b,c):
         timeout = time.time() + 1   # 1 sec from now
