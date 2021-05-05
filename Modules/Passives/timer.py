@@ -23,12 +23,10 @@ BIT3 = 26
         
 
 segCode = [0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f]  #0~9  
-pins = [11,12,13,15,16,18,22,7,3,5,24,26]  
+pins = [11,12,13,15,16,18,22,7,3,5,26]  # Here to change pins 
 bits = [BIT0, BIT1, BIT2, BIT3]  
 
-def print_msg():  
-        print ('Program is running...')  
-        print ('Please press Ctrl+C to end the program...')  
+
 
 def digitalWriteByte(val):  
         GPIO.output(11, val & (0x01 << 0))  
@@ -40,18 +38,6 @@ def digitalWriteByte(val):
         GPIO.output(22, val & (0x01 << 6))  
         GPIO.output(7,  val & (0x01 << 7))  
 
-def display_1():   
-        GPIO.output(BIT0, GPIO.LOW)  
-        for i in range(10):  
-                digitalWriteByte(segCode[i])  
-                time.sleep(0.5)  
-
-def display_2():  
-        for bit in bits:  
-                GPIO.output(bit, GPIO.LOW)   
-        for i in range(10):  
-                digitalWriteByte(segCode[i])  
-                time.sleep(0.5)  
 
 def timer(b0, b1, b2):  
 
@@ -74,17 +60,17 @@ def timer(b0, b1, b2):
 
         GPIO.output(BIT3, GPIO.LOW)  
         digitalWriteByte(segCode[b0])  
-        time.sleep(0.01)  
+        time.sleep(0.005)  
         GPIO.output(BIT3, GPIO.HIGH)   
 
         GPIO.output(BIT1, GPIO.LOW)  
         digitalWriteByte(segCode[b1])  
-        time.sleep(0.01)  
+        time.sleep(0.005)  
         GPIO.output(BIT1, GPIO.HIGH)  
 
         GPIO.output(BIT0, GPIO.LOW)  
         digitalWriteByte(segCode[b2])  
-        time.sleep(0.01)  
+        time.sleep(0.005)  
         GPIO.output(BIT0, GPIO.HIGH)   
 
 
@@ -119,6 +105,7 @@ def setup():
         for pin in pins:  
                 GPIO.setup(pin, GPIO.OUT)    #set all pins' mode is output  
                 GPIO.output(pin, GPIO.HIGH)  #set all pins are high level(3.3V)  
+        
 
 
 def loop():  
@@ -128,37 +115,14 @@ def loop():
                 mins, secs = divmod(countdown, 60)
                 dizainesec = secs % 100 / 10  
                 unitesec = secs % 10
-                print(countdown , mins, secs, mins, dizainesec, unitesec)
+                print("                 {} secondes !        {}:{} ".format(countdown, mins, secs))
                 loopdisplay(mins, dizainesec, unitesec)
                 countdown -= 1
         
-        print("boom")
+        print("Boom TA PERDU HAHAHA")
 
-        
+# def Erreur():
 
-
-
-
-
-        # seconds = 500
-        # timeremain = 501
-        # for j in range(seconds):
-                
-        #         timeremain = timeremain - 1
-        #         if timeremain > 459 and timeremain < 500:
-        #                 timeremain = 459
-        #         elif timeremain > 359 and timeremain < 400:
-        #                 timeremain = 359
-        #         elif timeremain > 259 and timeremain < 300:
-        #                 timeremain = 259
-        #         elif timeremain > 159 and timeremain < 200:
-        #                 timeremain = 159
-        #         elif timeremain > 59 and timeremain < 100:
-        #                 timeremain = 59
-        #         for i in range(150):
-        #                 timer(0,1,2)
-        #                 time.sleep(0.5) 
-                                
                 
 def loopdisplay(a,b,c):
         timeout = time.time() + 1   # 1 sec from now
@@ -178,6 +142,8 @@ def destroy():   #When program ending, the function is executed.
 if __name__ == '__main__': #Program starting from here   
     setup()   
     try:  
+        print("\n\nVous avez 300 secondes pour desamorcer la bombe, bonne chance !\n")
+        print("[Il vous reste] :")
         loop()
 
     except KeyboardInterrupt:    
