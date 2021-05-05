@@ -89,85 +89,9 @@ class keypad():
         for j in range(len(self.COLUMN)):
                 GPIO.setup(self.COLUMN[j], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-class Module1():
-    """
-    init : object = mot("") # Nothing into ""
-    """
 
-    def __init__(self, input):
 
-        self.input = input
-        self.MultiTap = {"A":x.accept(), "C":x.cancel(), "D":x.delete(), "0":" ", "8":"A", "88":"B", "888":"C", "1":"D", "11":"E", "6":"F", "66":"G", "666":"H",
-                        "3":"I", "33":"J", "7":"K", "77":"L", "#":"M", "##":"N", "###":"O", "9":"P", "99":"Q", "4":"R", "44":"S", "*":"T", "**":"U", "***":"V", 
-                        "5":"W", "55":"X", "2":"Y", "22":"Z"}
-        self.lettre = ""
-        self.motFinal = ""
-        self.index = 0
-        self.conversion()
 
-    def __str__(self, mot):
-        lcd.setCursor(0,0)
-        lcd.message(mot)
-        print(mot)       
-
-    def accept(self):
-        print("Accpet")
-
-    def cancel(self):
-        print("Cancel")
-
-    def delete(self):
-        print("Delete")
-
-    def conversion(self):
-
-        if len(self.lettre) == 0:
-            self.lettre += self.input
-            lcd.setCursor(self.index,1)
-            lcd.message(self.MultiTap.get(self.lettre))
-            print(self.lettre)
-
-        elif len(self.lettre) == 1:
-            print("coucou")
-            if self.lettre[0] == self.input:
-                self.lettre += self.input
-                lcd.setCursor(self.index,1)
-                lcd.message(self.lettre)
-                
-            else:
-                self.index += 1
-                self.motFinal += self.MultiTap.get(lettre)
-                self.lettre.clear()
-                self.lettre += self.input
-                lcd.setCursor(self.index,1)
-                lcd.message(self.MultiTap.get(self.input))
-            
-                
-    """
-        elif len(lettre) == 2:
-            if lettre[0] == nb:
-                lettre += nb
-            else:
-                lcd.setCursor(index,1)
-                lcd.message(MultiTap.get(nb))
-                motFinal = motFinal + MultiTap.get(lettre)
-                index += 1
-                lettre.clear()
-                lettre += nb
-
-        elif len(lettre) >= 3:
-                lcd.setCursor(index,1)
-                lcd.message(MultiTap.get(nb))
-                motFinal = motFinal + MultiTap.get(lettre)
-                index += 1
-                lettre.clear()
-                lettre += nb
-    """
-
-    def verifierMot(self):
-        if code == motFinal:
-            etape += 1
-            choixMot()
 
 
 
@@ -178,18 +102,23 @@ class Module1():
 # Mot long > 11
         
 def choixMot():        
+        mot = ""
         motsCourt = ["FLUX", "LINUX", "HTML", "LOG", "WI FI", "LIEN", "INTEL", "OCTET", "VIRUS", "PYTHON"]
         motsNormaux = ["LOGICIEL", "CONSOLE", "ORDINATEUR", "HACKEUR", "PIRATAGE", "INTERNET", "RESEAUX", "STOCKAGE", "ROUTEUR", "PARE FEU"]    
         motsLongs = ["CRYPTOLOGIE", "APPLICATION", "DEVELOPPEUR", "DEVELOPPEMENT", "CARTE GRAPHIQUE", "GABY ET VLADOU", "MICRO ORDINATEUR", "INTERFACE RESEAU"]
 
-        mot = ""
-
         if etape == 1:
             mot = motsCourt[random.randint(0, len(motsCourt)-1)]
+            lcd.setCursor(0,0)
+            lcd.message(mot)
         elif etape == 2:
             mot = motsNormaux[random.randint(0, len(motsCourt)-1)]
+            lcd.setCursor(0,0)
+            lcd.message(mot)
         elif etape == 3:
             mot = motsLongs[random.randint(0, len(motsCourt)-1)]
+            lcd.setCursor(0,0)
+            lcd.message(mot)
 
 
 
@@ -198,6 +127,7 @@ def module_1():
     print("Lancement du module 1 ...")    
     # Initialize the keypad class
     kp = keypad()
+    listeTouche = []
     choixMot()
     # Loop while waiting for a keypress
     while etape != 4:
@@ -205,10 +135,9 @@ def module_1():
         while digit == None:
             digit = kp.getKey()   
         # Print the result
-        x = Module1(digit)
-
-        traduction(str(digit), lettre, index)
-        time.sleep(0.3)
+        listeTouche.append(digit)
+        print(listeTouche)
+        time.sleep(0.7)
 
     else:
         print("Module reussi")
