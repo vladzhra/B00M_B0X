@@ -106,12 +106,12 @@ def setup():
                 GPIO.setup(pin, GPIO.OUT)    #set all pins' mode is output  
                 GPIO.output(pin, GPIO.HIGH)  #set all pins are high level(3.3V)  
         
-
+countdown = 0
 
 def loop():  
         seconds = 300
         countdown = seconds
-        for i in range(seconds):
+        while countdown > 0:
                 mins, secs = divmod(countdown, 60)
                 dizainesec = secs % 100 / 10  
                 unitesec = secs % 10
@@ -119,9 +119,10 @@ def loop():
                 loopdisplay(mins, dizainesec, unitesec)
                 countdown -= 1
         
-        print("Boom TA PERDU HAHAHA")
+        print("Boom")
 
-# def Erreur():
+def Erreur():
+        countdown -= 10
 
                 
 def loopdisplay(a,b,c):
