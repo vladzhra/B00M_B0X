@@ -54,3 +54,14 @@ def sonFinModule():
         p.ChangeFrequency(freq) # frequency: 50HZ
         time.sleep(0.01)
     p.stop()
+
+def sonFinEtape():
+    for i in range (2):
+        p.ChangeFrequency(4000) # frequency: 50HZ
+        p.start(10) # Duty cycle: 50%
+        time.sleep(0.1)
+        p.stop()
+        time.sleep(0.1)
+    p.stop()
+
+sonFinEtape()

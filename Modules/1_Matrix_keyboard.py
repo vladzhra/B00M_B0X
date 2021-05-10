@@ -100,14 +100,19 @@ class keypad():
 # Mot long > 11
 
 def finEtape():
+    global etape
+    etape += 1
     lcd.clear()
     lcd.setCursor(0, 0)
+    
     for i in range(12):
         lcd.scrollDisplayLeft()
-    lcd.message("Bien joué !\nMot suivant : ")
+    lcd.message("Bien joue !\nMot suivant : ")
     for i in range(28):      
         lcd.scrollDisplayRight()
         time.sleep(0.2)
+
+    module_1()
 
 def choixMot():
     """
@@ -120,17 +125,17 @@ def choixMot():
     motsLongs = ["CRYPTOLOGIE", "APPLICATION", "DEVELOPPEUR","GABY_ET_VLAD"]
 
     if etape == 1:
-        mot = motsCourt[random.randint(0, len(motsCourt)-1)]
+        mot = motsCourt[random.randint(0, len(motsCourt)-1)] # Longueur -1 car l'indexage d'une liste commence à 0
         lcd.setCursor(4,0)
         lcd.message(mot)
         return mot
     elif etape == 2:
-        mot = motsNormaux[random.randint(0, len(motsCourt)-1)]
+        mot = motsNormaux[random.randint(0, len(motsNormaux)-1)]
         lcd.setCursor(4,0)
         lcd.message(mot)
         return mot
     elif etape == 3:
-        mot = motsLongs[random.randint(0, len(motsCourt)-1)]
+        mot = motsLongs[random.randint(0, len(motsLongs)-1)]
         lcd.setCursor(4,0)
         lcd.message(mot)
         return mot
@@ -140,8 +145,6 @@ def accept(mdp):
     Code executer lorsque l'utilisateur rentre la combinaison de chiffre et appuis sur A
     """
     global indexLettre
-    global etape
-    print("Accepted")
     verification = conversion()
     if verification == mdp[indexLettre]:
         print("Lettre validé")
@@ -151,18 +154,14 @@ def accept(mdp):
         listeTouches.clear()
         if indexLettre >= len(mdp):
             print("Fin du mot") # Mot réussi
-            etape += 1
+            indexLettre = 0
             finEtape()
-            module_1()
     else:
         Erreurs.__add__()
         lcd.setCursor(indexLettre, 1)
         lcd.message("/")
         time.sleep(0.7)
 
-    
-    def delete():
-        pass #Pas bsoin finalement
 
 def clear():
     """
@@ -172,7 +171,7 @@ def clear():
     listeTouches.clear()
     print("cleared")
 
-MultiTap = {"A":"accept()", "C":"cancel()", "D":"delete()", # A changer
+MultiTap = {"A":"accept()", "C":"cancel()", "D":"", # A changer
             "0":"_",
             "8":"A", "88":"B", "888":"C", "1":"D", "11":"E", "6":"F", "66":"G", "666":"H", "3":"I", "33":"J", "7":"K", "77":"L", "#":"M", "##":"N", "###":"O", "9":"P", "99":"Q", "4":"R", "44":"S", "*":"T", "**":"U", "***":"V", "5":"W", "55":"X", "2":"Y", "22":"Z"}
 
@@ -217,14 +216,24 @@ def module_1():
         elif digit == "C":
             clear()
         elif digit == "D":
-            delete()
+            pass
         else:
             listeTouches.append(str(digit))
         print(listeTouches)
         time.sleep(0.5)
 
     else:
-        print("Module reussi")
+        sonFinModule()
+        lcd.clear()
+        lcd.setCursor(0, 0)
+        
+        for i in range(12):
+            lcd.scrollDisplayLeft()
+        lcd.message("Bien joue !\n Module suivant")
+        for i in range(28):      
+            lcd.scrollDisplayRight()
+            time.sleep(0.2)
+        
 
 
 
