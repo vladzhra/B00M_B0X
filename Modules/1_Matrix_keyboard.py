@@ -89,14 +89,6 @@ class keypad():
         for j in range(len(self.COLUMN)):
                 GPIO.setup(self.COLUMN[j], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-
-
-
-
-
-
-
-
 # Mot Court < 7 
 # 7 < Mot Normal < 11
 # Mot long > 11
@@ -105,20 +97,76 @@ def choixMot():
         mot = ""
         motsCourt = ["FLUX", "LINUX", "HTML", "LOG", "WI FI", "LIEN", "INTEL", "OCTET", "VIRUS", "PYTHON"]
         motsNormaux = ["LOGICIEL", "CONSOLE", "ORDINATEUR", "HACKEUR", "PIRATAGE", "INTERNET", "RESEAUX", "STOCKAGE", "ROUTEUR", "PARE FEU"]    
-        motsLongs = ["CRYPTOLOGIE", "APPLICATION", "DEVELOPPEUR", "DEVELOPPEMENT", "CARTE GRAPHIQUE", "GABY ET VLADOU", "MICRO ORDINATEUR", "INTERFACE RESEAU"]
+        motsLongs = ["CRYPTOLOGIE", "APPLICATION", "DEVELOPPEUR","GABY ET VLAD"]
 
         if etape == 1:
             mot = motsCourt[random.randint(0, len(motsCourt)-1)]
-            lcd.setCursor(0,0)
+            lcd.setCursor(4,0)
             lcd.message(mot)
         elif etape == 2:
             mot = motsNormaux[random.randint(0, len(motsCourt)-1)]
-            lcd.setCursor(0,0)
+            lcd.setCursor(4,0)
             lcd.message(mot)
         elif etape == 3:
             mot = motsLongs[random.randint(0, len(motsCourt)-1)]
-            lcd.setCursor(0,0)
+            lcd.setCursor(4,0)
             lcd.message(mot)
+
+MultiTap = {"A":"accept()", "C":"cancel()", "D":"delete()", # A changer
+            "0":" ",
+            "8":"A", "88":"B", "888":"C", "1":"D", "11":"E", "6":"F", "66":"G", "666":"H", "3":"I", "33":"J", "7":"K", "77":"L", "#":"M", "##":"N", "###":"O", "9":"P", "99":"Q", "4":"R", "44":"S", "*":"T", "**":"U", "***":"V", "5":"W", "55":"X", "2":"Y", "22":"Z"}
+
+listeTouches = []
+listeLettres = []
+
+def hashage():
+    """
+    Transforme la liste des chiffres en chaine de caractère de chiffre
+    Correspondant donc au type du dictionnaire MultiTap
+    """
+    lettre = ""
+    for i in range(len(listeTouches)):
+        lettre += listeTouches[i]
+
+    return lettre
+
+def conversion(touche, lettre):
+    """
+    Changement de la touche en lettres
+    """
+    index = len(listeLettres)
+
+
+    if len(listeTouches) > 1: # Il y a au moins 1 nombre ?
+        #Oui
+        if listeTouches[len(listeTouches) - 2] == touche: #Est ce que c'est le même ? (-2 Car la longueur d'une liste commence a 1 et la liste des éléments à 0 et on veut l'element d'avant)
+            #Oui
+            if listeTouches < 3:
+                #Oui
+                listeLettres.append(MultiTap.get(hashage()))
+                lcd.setCursor(index, 1)
+                lcd.message(listeLettres(index))
+
+
+            else:
+                #Non
+                listeTouches.clear()
+                listeTouches.append(touche[0])
+                lcd.setCursor(index, 1)
+                lcd.message(MultiTap.get(touche))
+
+        else:
+            #Non
+            listeLettres.append(MultiTap.get(listeTouches[len(listeTouches) - 2]))
+            lcd.setCursor(index, 1)
+            lcd.message(listeLettres(index))
+            listeTouches.clear()
+            listeTouches.append(touche[0])
+    else:
+        #Non
+        lcd.setCursor(index, 1)
+        lcd.message(MultiTap.get(listeTouches[0]))
+
 
 
 
@@ -127,16 +175,17 @@ def module_1():
     print("Lancement du module 1 ...")    
     # Initialize the keypad class
     kp = keypad()
-    listeTouche = []
     choixMot()
+    Erreurs = Error()
+    Erreurs.__str__()
     # Loop while waiting for a keypress
     while etape != 4:
         digit = None
         while digit == None:
             digit = kp.getKey()   
         # Print the result
-        listeTouche.append(digit)
-        print(listeTouche)
+        listeTouches.append(str(digit))
+        conversion(listeTouches, listeLettres)
         time.sleep(0.7)
 
     else:

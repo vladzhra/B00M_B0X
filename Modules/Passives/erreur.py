@@ -70,4 +70,3 @@ class Error:
             lcd.message("BOOM")
             time.sleep(1.5)
             self.explosion()
-
