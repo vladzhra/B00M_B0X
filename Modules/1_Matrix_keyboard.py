@@ -34,9 +34,12 @@ class keypad():
     ["*",0,"#","D"]
     ]
      
-    ROW = [11,12,13,15]
-    COLUMN = [16,18,22,7]
-     
+    # ROW = [11,12,13,15]        #C'est tes pins gabys
+    # COLUMN = [16,18,22,7]
+
+    ROW = [18,16,15,13]      #la c'est les miens
+    COLUMN = [12,10,8,7]
+
     def __init__(self):
         GPIO.setmode(GPIO.BOARD)
 

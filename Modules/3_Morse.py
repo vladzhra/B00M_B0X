@@ -41,9 +41,6 @@ def espace():   #Espace
 
 
 
-    
-
-
 def fonction0() : #0
 
     tiret()

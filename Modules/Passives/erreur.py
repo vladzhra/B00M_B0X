@@ -11,6 +11,7 @@ Module : Aucun
 
 from Passives.lcd import *
 from Passives.buzzer import *
+from Passives.timer import *
 import sys
 
 class Error: 
@@ -63,6 +64,7 @@ class Error:
         if self.nbError < 2 : 
             self.nbError += 1
             self.__str__()
+            timer.erreur()
             sonErreur()
         else:
             lcd.clear()

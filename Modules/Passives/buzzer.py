@@ -13,14 +13,37 @@ Module : Buzer
 
 import RPi.GPIO as GPIO
 import time
+import board
+import busio
+import digitalio
+from adafruit_mcp230xx.mcp23017 import MCP23017
 
-SonPin = 40
+i2c = busio.I2C(board.SCL, board.SDA)
+mcp = MCP23017(i2c, address=0x27)
+BZRPin = mcp.get_pin(15)
+BZRPin.switch_to_output(value=True)
 
-GPIO.setmode(GPIO.BOARD)       # Numbers pins by physical location
-GPIO.setup(SonPin, GPIO.OUT)   # Set pin mode as output
-GPIO.output(SonPin, GPIO.LOW)
+# GPIO.setmode(GPIO.BOARD)       # Numbers pins by physical location
+# GPIO.setup(SonPin, GPIO.OUT)   # Set pin mode as output
+# GPIO.output(SonPin, GPIO.LOW)
+try:
+    while True:
+        # Blink pin 0 on and then off.
+        BZRPin.value = True
+        time.sleep(0.5)
+        print("Pin 0 is at a high level: {0}".format(BZRPin.value))
+        BZRPin.value = False
+        time.sleep(0.5)
+        # Read pin 1 and print its state.
+        print("Pin 0 is at a high level: {0}".format(BZRPin.value))
 
-p = GPIO.PWM(SonPin, 100000) # init frequency: 50HZ
+
+except KeyboardInterrupt:
+    BZRPin.stop()
+    GPIO.cleanup()
+
+
+# p = GPIO.PWM(SonPin, 100000) # init frequency: 50HZ
 
 def sonCompteur():
 
@@ -64,4 +87,4 @@ def sonFinEtape():
         time.sleep(0.1)
     p.stop()
 
-sonFinEtape()
+

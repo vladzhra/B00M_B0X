@@ -121,10 +121,10 @@ def loop():
         
         print("Boom")
 
-def Erreur():
+def erreur():
         countdown -= 10
 
-                
+
 def loopdisplay(a,b,c):
         timeout = time.time() + 1   # 1 sec from now
         while time.time() < timeout:
