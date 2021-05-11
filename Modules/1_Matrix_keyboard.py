@@ -14,7 +14,8 @@ import time
 import random
 from Passives.lcd import *
 from Passives.erreur import Error
-from Passives.buzzer import sonFinModule
+from Passives.buzzer import sonFinModule, sonFinEtape
+
 
 mcp.output(3,1)     # Allume la lumiere du lcd
 lcd.begin(16,2)     # Met le nombre du colonne et de ligne de l'écran
@@ -102,15 +103,19 @@ class keypad():
 def finEtape():
     global etape
     etape += 1
-    lcd.clear()
-    lcd.setCursor(0, 0)
-    
-    for i in range(12):
-        lcd.scrollDisplayLeft()
-    lcd.message("Bien joue !\nMot suivant : ")
-    for i in range(28):      
-        lcd.scrollDisplayRight()
-        time.sleep(0.2)
+    if etape == 4:
+        pass
+    else:
+        lcd.clear()
+        lcd.setCursor(0, 0)
+        
+        for i in range(18):
+            lcd.scrollDisplayLeft()
+        lcd.message(" == Mot suivant == \n =-=-=-=-=-=-=-=- ")
+        sonFinEtape()
+        for i in range(28):      
+            lcd.scrollDisplayRight()
+            time.sleep(0.2)
 
     module_1()
 
@@ -158,8 +163,9 @@ def accept(mdp):
             finEtape()
     else:
         Erreurs.__add__()
+        listeTouches.clear()
         lcd.setCursor(indexLettre, 1)
-        lcd.message("/")
+        lcd.message("_")
         time.sleep(0.7)
 
 
@@ -227,16 +233,16 @@ def module_1():
         lcd.clear()
         lcd.setCursor(0, 0)
         
-        for i in range(12):
+        for i in range(18):
             lcd.scrollDisplayLeft()
-        lcd.message("Bien joue !\n Module suivant")
+        lcd.message("-- Module suivant -- \n -_-_-_-_-_-_-_-_ ")
         for i in range(28):      
             lcd.scrollDisplayRight()
             time.sleep(0.2)
+
         
 
-
-
+#Supprimer par la suite pour mettre une variable de module finit (losque = a nb max fin du jeu)
 if __name__ == '__main__': 
     try:
         module_1()
