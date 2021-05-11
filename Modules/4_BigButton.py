@@ -57,8 +57,6 @@ def rose():
     setColor(0, 100, 90)
 def cyan():
     setColor(100, 10, 10)
-def rose():
-    setColor(0, 100, 90)
 def orange():
     setColor(0, 95, 100)
 
@@ -70,10 +68,25 @@ def module_4():
     while True:
         if GPIO.input(buttonPin)==GPIO.LOW: # if button is pressed
             blanc()
-
+            time.sleep(0.1)
+            rouge()
+            time.sleep(0.1)
+            vert()
+            time.sleep(0.1)
+            bleu()
+            time.sleep(0.1)
+            cyan()
+            time.sleep(0.1)
+            orange()
+            time.sleep(0.1)
+            rose()
+            time.sleep(0.1)
+            violet()
+            time.sleep(0.1)            
 
         else : # if button is relessed
             noir()
+
 
 
  

@@ -9,13 +9,14 @@ Module : Matrix keyboard
     Objective : Write the correct password
     Malus : - 10 seconds
 """
-import RPi.GPIO as GPIO  
-import time  
 import random
-from Passives.lcd import *
-from Passives.erreur import Error
-from Passives.buzzer import sonFinModule, sonFinEtape
+import time
 
+import RPi.GPIO as GPIO
+
+from Passives.buzzer import sonFinEtape, sonFinModule
+from Passives.erreur import Error
+from Passives.lcd import *
 
 mcp.output(3,1)     # Allume la lumiere du lcd
 lcd.begin(16,2)     # Met le nombre du colonne et de ligne de l'écran
