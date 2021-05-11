@@ -242,7 +242,7 @@ def module_1():
 
         
 
-#Supprimer par la suite pour mettre une variable de module finit (losque = a nb max fin du jeu)
+#Supprimer par la suite pour mettre une variable de module finit (lorsque = nb max fin du jeu)
 if __name__ == '__main__': 
     try:
         module_1()
