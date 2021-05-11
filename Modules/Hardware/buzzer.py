@@ -8,7 +8,7 @@ Description : The buzer module code
 Module : Buzer
     Objective : Set a buzer every second / we'll use it for the morse module
 """
-
+-
 
 
 import RPi.GPIO as GPIO
@@ -38,9 +38,6 @@ try:
         print("Pin 0 is at a high level: {0}".format(BZRPin.value))
 
 
-except KeyboardInterrupt:
-    BZRPin.stop()
-    GPIO.cleanup()
 
 
 # p = GPIO.PWM(SonPin, 100000) # init frequency: 50HZ
