@@ -10,24 +10,18 @@ Module :
     Malus : 
 """
 
-#!/usr/bin/env python3
-########################################################################
-# Filename    : ColorfulLED.py
-# Description : Random color change ColorfulLED
-# Author      : www.freenove.com
-# modification: 2019/12/27
-########################################################################
 import RPi.GPIO as GPIO
 import time
 import random
 
-pins = [11, 12, 13]         # define the pins for R:11,G:12,B:13 
+pins = [11, 12, 13]     # define the pins for R:11,G:12,B:13 
 buttonPin = 32    # define buttonPin
 
 def setup():
     global pwmRed,pwmGreen,pwmBlue  
     GPIO.setmode(GPIO.BOARD)       # use PHYSICAL GPIO Numbering
     GPIO.setup(pins, GPIO.OUT)     # set RGBLED pins to OUTPUT mode
+    GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # set buttonPin to PULL UP INPUT mode
     GPIO.output(pins, GPIO.HIGH)   # make RGBLED pins output HIGH level
     pwmRed = GPIO.PWM(pins[0], 2000)      # set PWM Frequence to 2kHz
     pwmGreen = GPIO.PWM(pins[1], 2000)  # set PWM Frequence to 2kHz
@@ -47,25 +41,42 @@ def destroy():
     pwmBlue.stop()
     GPIO.cleanup()
 
+def blanc():
+    setColor(50, 50, 50)
+def noir():
+    setColor(100, 100, 100)
+def rouge():
+    setColor(0, 100, 100)
+def vert():
+    setColor(100, 0, 100)
+def bleu():
+    setColor(100, 100, 0)
+def violet():
+    setColor(80, 100, 0)
+def rose():
+    setColor(0, 100, 90)
+def cyan():
+    setColor(100, 10, 10)
+def rose():
+    setColor(0, 100, 90)
+def orange():
+    setColor(0, 95, 100)
+
+
+
 def module_4():
+
     print("Lancement du module 4 ...")
-
-
-##############################
-
-def setup():
-    
-    GPIO.setmode(GPIO.BOARD)      # use PHYSICAL GPIO Numbering
-    GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # set buttonPin to PULL UP INPUT mode
-
-def loop():
     while True:
         if GPIO.input(buttonPin)==GPIO.LOW: # if button is pressed
-            print ('led turned on >>>')     # print information on terminal
-            time.sleep(1)
+            blanc()
+
+
         else : # if button is relessed
-            print ('led turned off <<<')
-            time.sleep(1) 
+            noir()
+
+
+ 
 
 
 
@@ -73,7 +84,7 @@ if __name__ == '__main__':     # Program entrance
     print ('Program is starting ... ')
     setup()
     try:
-        loop()
+        module_4()
     except KeyboardInterrupt:  # Press ctrl-c to end the program.
         destroy()
 
