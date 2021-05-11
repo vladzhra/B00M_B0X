@@ -10,16 +10,16 @@ Module : Matrix keyboard
     Malus : - 10 seconds
 """
 import random
-import time
-
-import RPi.GPIO as GPIO
+from Hardware.display import *
+from Hardware.Software.erreur import Error
+from Hardware.buzzer import sonFinModule, sonFinEtape
 
 from Passives.buzzer import sonFinEtape, sonFinModule
 from Passives.erreur import Error
 from Passives.lcd import *
 
-mcp.output(3,1)     # Allume la lumiere du lcd
-lcd.begin(16,2)     # Met le nombre du colonne et de ligne de l'écran
+mcp.output(3,1)     # Allume la lumiere du display
+display.begin(16,2)     # Met le nombre du colonne et de ligne de l'écran
 Erreurs = Error()
 etape = 1
 listeTouches = []
@@ -110,15 +110,15 @@ def finEtape():
     if etape == 4:
         pass
     else:
-        lcd.clear()
-        lcd.setCursor(0, 0)
+        display.clear()
+        display.setCursor(0, 0)
         
         for i in range(18):
-            lcd.scrollDisplayLeft()
-        lcd.message(" == Mot suivant == \n =-=-=-=-=-=-=-=- ")
+            display.scrollDisplayLeft()
+        display.message(" == Mot suivant == \n =-=-=-=-=-=-=-=- ")
         sonFinEtape()
         for i in range(28):      
-            lcd.scrollDisplayRight()
+            display.scrollDisplayRight()
             time.sleep(0.2)
 
     module_1()
@@ -135,18 +135,18 @@ def choixMot():
 
     if etape == 1:
         mot = motsCourt[random.randint(0, len(motsCourt)-1)] # Longueur -1 car l'indexage d'une liste commence à 0
-        lcd.setCursor(4,0)
-        lcd.message(mot)
+        display.setCursor(4,0)
+        display.message(mot)
         return mot
     elif etape == 2:
         mot = motsNormaux[random.randint(0, len(motsNormaux)-1)]
-        lcd.setCursor(4,0)
-        lcd.message(mot)
+        display.setCursor(4,0)
+        display.message(mot)
         return mot
     elif etape == 3:
         mot = motsLongs[random.randint(0, len(motsLongs)-1)]
-        lcd.setCursor(4,0)
-        lcd.message(mot)
+        display.setCursor(4,0)
+        display.message(mot)
         return mot
 
 def accept(mdp):
@@ -157,8 +157,8 @@ def accept(mdp):
     verification = conversion()
     if verification == mdp[indexLettre]:
         print("Lettre validé")
-        lcd.setCursor(indexLettre, 1)
-        lcd.message(verification)
+        display.setCursor(indexLettre, 1)
+        display.message(verification)
         indexLettre += 1
         listeTouches.clear()
         if indexLettre >= len(mdp):
@@ -168,8 +168,8 @@ def accept(mdp):
     else:
         Erreurs.__add__()
         listeTouches.clear()
-        lcd.setCursor(indexLettre, 1)
-        lcd.message("_")
+        display.setCursor(indexLettre, 1)
+        display.message("_")
         time.sleep(0.7)
 
 
@@ -209,7 +209,7 @@ def module_1():
     print("Lancement du module 1 ...")    
     # Initialize the keypad class
     kp = keypad()
-    lcd.clear()
+    display.clear()
     Erreurs.__str__()
     motDePasse = choixMot()
     print(motDePasse)
@@ -234,14 +234,14 @@ def module_1():
 
     else:
         sonFinModule()
-        lcd.clear()
-        lcd.setCursor(0, 0)
+        display.clear()
+        display.setCursor(0, 0)
         
         for i in range(18):
-            lcd.scrollDisplayLeft()
-        lcd.message("-- Module suivant -- \n -_-_-_-_-_-_-_-_ ")
+            display.scrollDisplayLeft()
+        display.message("-- Module suivant -- \n -_-_-_-_-_-_-_-_ ")
         for i in range(28):      
-            lcd.scrollDisplayRight()
+            display.scrollDisplayRight()
             time.sleep(0.2)
 
         
@@ -251,7 +251,7 @@ if __name__ == '__main__':
     try:
         module_1()
     except KeyboardInterrupt:  # Quand 'Ctrl+C' est pressé, le code si dessous s'éxecute.                 
-        lcd.clear() # Clear l'écran
+        display.clear() # Clear l'écran
         GPIO.cleanup() # Laisse les ressources
 
 

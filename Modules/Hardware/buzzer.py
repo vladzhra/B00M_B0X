@@ -9,6 +9,7 @@ Module : Buzer
     Objective : Set a buzer every second / we'll use it for the morse module
 """
 
+
 import RPi.GPIO as GPIO
 import time
 import board
@@ -24,6 +25,21 @@ BZRPin.switch_to_output(value=True)
 # GPIO.setmode(GPIO.BOARD)       # Numbers pins by physical location
 # GPIO.setup(SonPin, GPIO.OUT)   # Set pin mode as output
 # GPIO.output(SonPin, GPIO.LOW)
+
+
+while True:
+        # Blink pin 0 on and then off.
+        BZRPin.value = True
+        time.sleep(0.5)
+        print("Pin 0 is at a high level: {0}".format(BZRPin.value))
+        BZRPin.value = False
+        time.sleep(0.5)
+        # Read pin 1 and print its state.
+        print("Pin 0 is at a high level: {0}".format(BZRPin.value))
+
+
+
+
 # p = GPIO.PWM(SonPin, 100000) # init frequency: 50HZ
 
 def sonCompteur():

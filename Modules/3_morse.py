@@ -8,7 +8,7 @@ Description : Buzer's code
 Module : Morse
     Objective : Set a buzer to use it for the morse module
 """
-
+import Hardware.keypad as keypad
 import RPi.GPIO as GPIO
 import time
 import random
