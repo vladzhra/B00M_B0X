@@ -12,10 +12,13 @@ class keypad():
     # ROW = [11,12,13,15]        #C'est tes pins gabys
     # COLUMN = [16,18,22,7]
 
-    ROW = [18,16,15,13]      #la c'est les miens
-    COLUMN = [12,10,8,7]
+    # ROW = [18,16,15,13]      #la c'est les miens
+    # COLUMN = [12,10,8,7]
 
-    def __init__(self):
+    ROW = [r1,r2,r3,r4]      #la c'est les miens
+    COLUMN = [c1,c2,c3,c4]
+
+    def __init__(self,r1,r2,r3,r4,c1,c2,c3,c4):
         GPIO.setmode(GPIO.BOARD)
 
     def getKey(self):

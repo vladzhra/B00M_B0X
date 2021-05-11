@@ -9,7 +9,7 @@ Module : Timer
     Objective : Set the timer of the bomb
   
 """
-
+import keypad
 import RPi.GPIO as GPIO  
 import time  
 import threading
@@ -27,7 +27,9 @@ class timer():
         segCode = [0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f]  #0~9  
         pins = [11,12,13,15,16,18,22,7,3,5,26]  # Here to change pins 
         bits = [BIT0, BIT1, BIT2, BIT3]  
-        def __init__(self)
+
+        def __init__(self):
+                
 
 
         def digitalWriteByte(self,val):  
