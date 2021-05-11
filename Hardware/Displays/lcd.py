@@ -1,17 +1,36 @@
+from Hardware.Displays.adeeptDisplay import *
+
 class LcdBaseClass():
 
 
         
-    def write(self,toDisplay:str):
+    def message(self,toDisplay:str):
         pass
 
     def clear(self):
         pass
-        
+    
+    def begin(self):
+        pass
+    
+    def setCursor(self):
+        pass
+    
+    def scrollDisplayLeft(self):
+        pass
+
+    def scrollDisplayRight(self):
+        pass
+
+
 
 class Lcd(LcdBaseClass):
 
-    def write(self,toDisplay:str):
+    def __init__(self):
+        mcp.output(3,1)     # Allume la lumiere du display
+        display.begin(16,2)     # Met le nombre du colonne et de ligne de l'écran
+
+    def message(self,toDisplay:str):
         print("LOG Lcd: write() ")
         #### TODO To Implement
     
@@ -19,14 +38,41 @@ class Lcd(LcdBaseClass):
         print("LOG Lcd: clear() ")
         #### TODO To Implement
     
+    def begin(self):
+        pass
+    
+    def setCursor(self):
+        pass
+    
+    def scrollDisplayLeft(self):
+        pass
+
+    def scrollDisplayRight(self):
+        pass
+
 class LcdMock(LcdBaseClass):
 
-    def write(self,toDisplay:str):
+    def message(self,toDisplay:str):
         print("LOG LcdMock: write()")
         print("action :", toDisplay)
 
     def clear(self):
         print("LOG LcdMock: clear() ")
+
+    def begin(self):
+        print("LOG LcdMock: begin() ")
+
+    
+    def setCursor(self):
+        print("LOG LcdMock: setCursor() ")
+
+    
+    def scrollDisplayLeft(self):
+        print("LOG LcdMock: scrollDisplayLeft() ")
+
+
+    def scrollDisplayRight(self):
+        print("LOG LcdMock: scrollDisplayRight() ")
    
 
 
