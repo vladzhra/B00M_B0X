@@ -63,5 +63,3 @@ def sonFinEtape():
         p.stop()
         time.sleep(0.1)
     p.stop()
-
-sonFinEtape()
