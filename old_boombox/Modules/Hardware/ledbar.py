@@ -16,6 +16,7 @@ class ledbar():
 	LedPin3 = 33
 	LedPin4 = 35
 	LedPin5 = 37
+	
 	def __init__(self):
 
 		GPIO.setmode(GPIO.BOARD)       # Numbers pins by physical location

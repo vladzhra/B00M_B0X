@@ -13,7 +13,7 @@ class LcdBaseClass():
     def begin(self):
         pass
     
-    def setCursor(self):
+    def setCursor(self, row, column):
         pass
     
     def scrollDisplayLeft(self):
@@ -28,7 +28,7 @@ class Lcd(LcdBaseClass):
 
     def __init__(self):
         mcp.output(3,1)     # Allume la lumiere du display
-        display.begin(16,2)     # Met le nombre du colonne et de ligne de l'écran
+        self.begin(16,2)     # Met le nombre du colonne et de ligne de l'écran
 
     def message(self,toDisplay:str):
         print("LOG Lcd: write() ")
@@ -41,7 +41,7 @@ class Lcd(LcdBaseClass):
     def begin(self):
         pass
     
-    def setCursor(self):
+    def setCursor(self, row, column):
         pass
     
     def scrollDisplayLeft(self):
@@ -63,7 +63,7 @@ class LcdMock(LcdBaseClass):
         print("LOG LcdMock: begin() ")
 
     
-    def setCursor(self):
+    def setCursor(self, row, column):
         print("LOG LcdMock: setCursor() ")
 
     

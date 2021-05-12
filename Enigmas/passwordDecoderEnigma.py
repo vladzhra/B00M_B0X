@@ -34,20 +34,39 @@ class PasswordDecoderEnigma(EnigmaBase):
         # kp = keypad()
         self.lcd.clear()
         self.er.__str__()
-        motDePasse = choixMot()
+        motDePasse = self.choixMot()
         print(motDePasse)
         # Loop while waiting for a keypress
-        while self.etape != 4:
+
+        while self.etape < 4:
             digit = None
             while digit == None:
                 digit = self.kp.getKey()   
             # Print the result
             if digit == "A":
-                accept(motDePasse)
+                if self.accept(motDePasse) == True:  #Condition d'arret, nombre d'erreurs dépassé
+                    if self.indexLettre >= len(motDePasse):
+                        print("Fin du mot") # Mot réussi
+                        self.lcd.clear()
+                        self.lcd.setCursor(0, 0)
+                        
+                        for i in range(18):
+                            self.lcd.scrollDisplayLeft()
+                        self.lcd.message(" == Mot suivant == \n =-=-=-=-=-=-=-=- ")
+                        # sonFinEtape()                                             #TODO TODO TODO
+                        for i in range(28):      
+                            self.lcd.scrollDisplayRight()
+                            time.sleep(0.2)
+ 
+                        self.indexLettre = 0
+                        self.etape += 1
+                else:
+                    if self.er.count() >= 3:
+                        return False # Enigma raté
             elif digit == "B":
                 pass
             elif digit == "C":
-                clear()
+                self.lcd.clear()
             elif digit == "D":
                 pass
             else:
@@ -55,19 +74,20 @@ class PasswordDecoderEnigma(EnigmaBase):
             print(self.listeTouches)
             time.sleep(0.5)
 
-        else:
-            sonFinModule()
-            self.lcd.clear()
-            self.lcd.setCursor(0, 0)
-            
-            for i in range(18):
-                self.lcd.scrollDisplayLeft()
-            self.lcd.message("-- Module suivant -- \n -_-_-_-_-_-_-_-_ ")
-            for i in range(28):      
-                self.lcd.scrollDisplayRight()
-                time.sleep(0.2)
+        #sonFinModule()    #TODO
+        self.lcd.clear()
+        self.lcd.setCursor(0, 0)
+        
+        for i in range(18):
+            self.lcd.scrollDisplayLeft()
+        self.lcd.message("-- Enigme réussie -- \n -_-_-_-_-_-_-_-_ ")
+        for i in range(28):      
+            self.lcd.scrollDisplayRight()
+            time.sleep(0.2)
+        return True
 
-    def choixMot():
+
+    def choixMot(self):
         """
         Permet de choisir le mot a deviner pour cette enigme 
         La difficulté est croissante
@@ -93,29 +113,27 @@ class PasswordDecoderEnigma(EnigmaBase):
             self.lcd.message(mot)
             return mot
 
-    def accept(mdp):
+    def accept(self,mdp):
         """
         Code executer lorsque l'utilisateur rentre la combinaison de chiffre et appuis sur A
         """
-        verification = conversion()
+        verification = self.conversion()
         if verification == mdp[self.indexLettre]:
             print("Lettre validé")
             self.lcd.setCursor(self.indexLettre, 1)
             self.lcd.message(verification)
             self.indexLettre += 1
             self.listeTouches.clear()
-            if self.indexLettre >= len(mdp):
-                print("Fin du mot") # Mot réussi
-                self.indexLettre = 0
-                finEtape()
-        else:
+            return True
+        else: # Erreur
             self.er.__add__()
             self.listeTouches.clear()
             self.lcd.setCursor(self.indexLettre, 1)
             self.lcd.message("_")
             time.sleep(0.7)
+            return False
 
-    def conversion():
+    def conversion(self):
         """
         Changement des touches rentées par l'utilisateur en lettres
         """
@@ -127,26 +145,25 @@ class PasswordDecoderEnigma(EnigmaBase):
             
                 for i in range(len(self.listeTouches)):
                     chiffres += self.listeTouches[i]    
-                return (MultiTap.get(chiffres))
+                return (self.MultiTap.get(chiffres))
         else:
             pass
 
-    def finEtape():
+    # def finEtape(self):
         
-        self.etape += 1
-        if self.etape == 4:
-            pass
-        else:
-            self.lcd.clear()
-            self.lcd.setCursor(0, 0)
+    #     self.etape += 1
+    #     if self.etape > 3:
+    #         pass
+    #     else:
+    #         self.lcd.clear()
+    #         self.lcd.setCursor(0, 0)
             
-            for i in range(18):
-                self.lcd.scrollDisplayLeft()
-            self.lcd.message(" == Mot suivant == \n =-=-=-=-=-=-=-=- ")
-            sonFinEtape()
-            for i in range(28):      
-                self.lcd.scrollDisplayRight()
-                time.sleep(0.2)
-
-        return 
-        resolveEnigma()
+    #         for i in range(18):
+    #             self.lcd.scrollDisplayLeft()
+    #         self.lcd.message(" == Mot suivant == \n =-=-=-=-=-=-=-=- ")
+    #         # sonFinEtape()                                             #TODO TODO TODO
+    #         for i in range(28):      
+    #             self.lcd.scrollDisplayRight()
+    #             time.sleep(0.2)
+ 
+    #     self.resolveEnigma()

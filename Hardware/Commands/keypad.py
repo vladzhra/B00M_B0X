@@ -90,7 +90,8 @@ class KeypadMock(KeypadBaseClass):
 
     def getKey(self):
         print("LOG KeypadMock: Keypad Mock read key")
-        return "A" 
+        nb = str(input("Input : "))
+        return nb
 
 
 

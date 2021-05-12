@@ -1,4 +1,4 @@
 class EnigmaBase():
 
     def resolveEnigma(self):
-        pass
+        return False
