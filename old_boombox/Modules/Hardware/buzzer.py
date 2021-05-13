@@ -27,15 +27,6 @@ BZRPin.switch_to_output(value=True)
 # GPIO.output(SonPin, GPIO.LOW)
 
 
-while True:
-        # Blink pin 0 on and then off.
-        BZRPin.value = True
-        time.sleep(0.5)
-        print("Pin 0 is at a high level: {0}".format(BZRPin.value))
-        BZRPin.value = False
-        time.sleep(0.5)
-        # Read pin 1 and print its state.
-        print("Pin 0 is at a high level: {0}".format(BZRPin.value))
 
 
 

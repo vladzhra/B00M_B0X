@@ -1,8 +1,8 @@
 """
-Author : Gabriel Lepinay | Vlad Zaharia
+Author : ADEEPT
 Version : Python 3.7.3 - 32 bits
 IDE : Visual Studio Code
-Directory : /home/pi/Documents/Dev/B00mB0x/Modules/Passives/lcd.py
+Directory : 
 Description : LCD's code 
 
 Module : Lcd screen

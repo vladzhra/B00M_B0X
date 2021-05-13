@@ -1,3 +1,4 @@
+from Hardware.Commands.buttons import Buttons
 from Enigmas.enigmaBase import *
 from Hardware.Commands.keypad import *
 from Hardware.Displays.lcd import *
@@ -6,7 +7,6 @@ import random
 import time
 
 class PasswordDecoderEnigma(EnigmaBase):
-    
     
     etape = 1
     listeTouches = []
@@ -21,7 +21,7 @@ class PasswordDecoderEnigma(EnigmaBase):
         self.kp = kp
         self.lcd = lcd
         self.er = er
- 
+
         
 
     def resolveEnigma(self):
