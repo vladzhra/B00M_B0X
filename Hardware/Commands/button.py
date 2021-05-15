@@ -2,7 +2,7 @@
 Author : Gabriel Lepinay | Vlad Zaharia
 Version : Python 3.7.3 - 32 bits
 IDE : Visual Studio Code
-Directory : /home/pi/Documents/Dev/B00mB0x/
+Directory : /home/pi/Documents/Dev/B00M_B0X/Hardware/Commands/button.py
 Description : python file for all buttons in project
 
 Module : 
@@ -24,8 +24,6 @@ class ButtonBaseClass(CommandBase):
 
 class Button(ButtonBaseClass):
     # CONSTANTS   
-
-
 
     def __init__(self, buttonPin):
         self.buttonPin = buttonPin 

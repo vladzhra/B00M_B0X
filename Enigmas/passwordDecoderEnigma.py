@@ -7,7 +7,21 @@ import random
 import time
 
 class PasswordDecoderEnigma(EnigmaBase):
-    
+    """Classe de l'énigme BigoPassword.
+
+    Cette classe sert a faire marcher l'enigme.
+
+    Méthodes
+    ----------
+    resolveEnigma : 
+        Code principal de l'enigme.
+    choixMot : 
+        Permet de choisir le mot à décoder.
+    accept : 
+        Code executer lorsque l'utilisateur rentre la combinaison de chiffre et appuis sur A
+    conversion : 
+        Changement des touches rentées par l'utilisateur en lettres
+    """
     etape = 1
     listeTouches = []
     indexLettre = 0

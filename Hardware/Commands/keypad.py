@@ -2,15 +2,35 @@ from Hardware.Commands.commandBase import *
 import RPi.GPIO as GPIO  
 
 class KeypadBaseClass(CommandBase):
-   
+    """Classe de base du keypad.
+
+    Cette classe sert à construire les héritages.
+
+    """
     def getKey(self):
-        print("LOG KeypadBaseClass: Keypad Base read key")
+        print("LOG KeypadBaseClass: getKey")
+        return None
+
+    def exit(self):
+        print("LOG KeypadBaseClass: exit")
         return None
 
 
 
 
+
 class Keypad(KeypadBaseClass):
+    """Classe hérité de KeypadBaseClass.
+
+    Cette classe sert a faire marcher le keypad.
+
+    Méthodes
+    ----------
+    getKey :
+        Permet de récuperer la touche sur laquelle l'utilisateur à appuyé.
+    exit :
+        Permet de libérer les gpio utilisés pour le keypad
+    """
     # CONSTANTS   
     KEYPAD = [
     [1,2,3,"A"],
@@ -87,12 +107,20 @@ class Keypad(KeypadBaseClass):
                 GPIO.setup(self.COLUMN[j], GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 class KeypadMock(KeypadBaseClass):
+    """Classe hérité de KeypadBaseClass.
 
+    Cette classe sert à debbuger le code du keypad sans le hardware.
+
+    Méthodes
+    ----------
+    getKey :
+        Permet de récuperer la touche sur laquelle l'utilisateur à appuyé.
+    """
+    
     def getKey(self):
         print("LOG KeypadMock: Keypad Mock read key")
         nb = str(input("Input : "))
         return nb
-
 
 
 

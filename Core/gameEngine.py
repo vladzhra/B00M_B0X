@@ -5,7 +5,27 @@ from Hardware.Displays.lcd import *
 import sys
 
 class GameEngine():
+    """Classe du moteur de jeu.
 
+    Cette classe est le moteur du jeu.
+
+    Méthodes
+    ----------
+    process :
+        Debut du jeux lance tout ce qui doit etre lancé.  TODO-->Préciser
+    displayInit : 
+        Affiche le début du jeu.
+    selectEnigmas : 
+        Choisis 3 enigmes parmis les 5.
+    displayEnigmas :
+        Affiche les 3 enigmes choisis.
+    launchCountdown :
+        Lance le programme du timer       
+    mainEngineLoop :
+        TODO-->Préciser
+    endOfGame : bool
+        Détermine si le jeux est réussi ou non.
+    """
     enigmasCount = 5
     enigmasList = []
 
@@ -25,7 +45,7 @@ class GameEngine():
 
     
     def displayInit(self):
-        print("START !!!!")
+        print("START !!!!") #TODO
         
     def selectEnigmas(self):
         self.enigmasList = [1, 3, 4] #TODO
@@ -67,5 +87,4 @@ class GameEngine():
             print("bravoooooos")
         else:
             print("nuuuuul")
-
         sys.exit()
